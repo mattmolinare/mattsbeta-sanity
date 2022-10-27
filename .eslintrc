@@ -1,3 +1,22 @@
 {
-  "extends": ["prettier", "@sanity/eslint-config-studio"]
+  "extends": [
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "@sanity/eslint-config-studio"
+  ],
+  "rules": {
+    "sort-imports": ["error", {"ignoreDeclarationSort": true}],
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {"order": "asc", "caseInsensitive": false},
+        "newlines-between": "never"
+      }
+    ]
+  },
+  "plugins": ["import"]
 }
