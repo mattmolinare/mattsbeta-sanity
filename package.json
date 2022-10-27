@@ -8,7 +8,8 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "prepare": "husky install"
   },
   "keywords": [
     "sanity"
@@ -21,8 +22,11 @@
     "styled-components": "^5.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
     "@sanity/eslint-config-studio": "^2.0.0",
     "eslint": "^8.6.0",
+    "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "typescript": "^4.0.0"
   },
