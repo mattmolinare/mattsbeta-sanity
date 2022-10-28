@@ -72,6 +72,12 @@ export const schemaTypes: SchemaTypeDefinition[] = [
         validation: (Rule) => Rule.required(),
       },
       {
+        name: 'peaks',
+        title: 'Peaks',
+        type: 'array',
+        of: [{type: 'reference', to: {type: 'peak'}}],
+      },
+      {
         name: 'coverPhotoUrl',
         title: 'Cover photo URL',
         type: 'url',
@@ -82,12 +88,6 @@ export const schemaTypes: SchemaTypeDefinition[] = [
         title: 'Track key',
         type: 'string',
         validation: (Rule) => Rule.required(),
-      },
-      {
-        name: 'peaks',
-        title: 'Peaks',
-        type: 'array',
-        of: [{type: 'reference', to: {type: 'peak'}}],
       },
       {
         name: 'report',
