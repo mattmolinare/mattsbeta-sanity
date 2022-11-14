@@ -1,4 +1,5 @@
-import type {SchemaTypeDefinition} from 'sanity'
+import {Stack, TextInput} from '@sanity/ui'
+import {ObjectInput, SchemaTypeDefinition, StringInputProps} from 'sanity'
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   {
@@ -82,6 +83,14 @@ export const schemaTypes: SchemaTypeDefinition[] = [
         title: 'Cover photo URL',
         type: 'url',
         validation: (Rule) => Rule.required(),
+        components: {
+          input: ({elementProps, value}: StringInputProps) => (
+            <Stack space={3}>
+              <TextInput {...elementProps} />
+              {value && <img src={value} alt="" width="100%" />}
+            </Stack>
+          ),
+        },
       },
       {
         name: 'trackKey',
@@ -93,13 +102,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
         name: 'report',
         title: 'Report',
         type: 'array',
-        of: [{type: 'block', styles: [{title: 'Normal', value: 'normal'}]}],
-      },
-      {
-        name: 'photos',
-        title: 'Photos',
-        type: 'array',
-        of: [{type: 'photo'}],
+        of: [{type: 'block', styles: [{title: 'Normal', value: 'normal'}]}, {type: 'photo'}],
       },
     ],
   },
@@ -164,10 +167,34 @@ export const schemaTypes: SchemaTypeDefinition[] = [
         validation: (Rule) => Rule.required(),
       },
       {
+        name: 'alt',
+        title: 'Alternative text',
+        type: 'string',
+        initialValue: '',
+      },
+      {
         name: 'caption',
         title: 'Caption',
         type: 'string',
       },
     ],
+    preview: {select: {url: 'url', alt: 'alt', caption: 'caption'}},
+    components: {
+      input: ObjectInput, // Suppress warning
+      preview: (props) => {
+        const value = props.value as any
+
+        if (value === undefined) {
+          return null
+        }
+
+        return (
+          <figure>
+            <img src={value.url} alt={value.alt} width="100%" />
+            <figcaption>{value.caption}</figcaption>
+          </figure>
+        )
+      },
+    },
   },
 ]
