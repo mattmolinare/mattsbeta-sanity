@@ -1,10 +1,13 @@
 import {googleMapsInput} from '@sanity/google-maps-input'
 import {visionTool} from '@sanity/vision'
-import {createConfig} from 'sanity'
+import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
-import {schemaTypes} from './schemas'
+import peakType from './schemas/peak'
+import peakListType from './schemas/peak-list'
+import photoType from './schemas/photo'
+import tripType from './schemas/trip'
 
-export default createConfig({
+export default defineConfig({
   name: 'default',
   title: 'mattsbeta',
 
@@ -22,6 +25,6 @@ export default createConfig({
   ],
 
   schema: {
-    types: schemaTypes,
+    types: [peakType, peakListType, photoType, tripType],
   },
 })
