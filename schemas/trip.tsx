@@ -34,40 +34,12 @@ const tripType = defineType({
     defineField({
       name: 'county',
       title: 'County',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'name',
-          title: 'Name',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'state',
-          title: 'State',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-      ],
+      type: 'county',
     }),
     defineField({
       name: 'protectedArea',
       title: 'Protected area',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'name',
-          title: 'Name',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'manager',
-          title: 'Manager',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-      ],
+      type: 'protectedArea',
     }),
     defineField({
       name: 'routeType',
