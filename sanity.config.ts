@@ -12,8 +12,8 @@ import tripType from "./schemas/trip";
 export default defineConfig({
   name: "default",
   title: "mattsbeta",
-  projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
-  dataset: import.meta.env.SANITY_STUDIO_DATASET,
+  projectId: "orjpg8ll",
+  dataset: "production",
   plugins: [
     deskTool(),
     visionTool(),
