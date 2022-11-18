@@ -12,20 +12,17 @@ import tripType from "./schemas/trip";
 export default defineConfig({
   name: "default",
   title: "mattsbeta",
-
-  projectId: "orjpg8ll",
-  dataset: "production",
-
+  projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
+  dataset: import.meta.env.SANITY_STUDIO_DATASET,
   plugins: [
     deskTool(),
     visionTool(),
     googleMapsInput({
-      apiKey: "AIzaSyDN6KaPR2_CgiJELrwoo9EGv8hf13uKYbQ",
+      apiKey: import.meta.env.SANITY_STUDIO_GOOGLE_MAPS_API_KEY,
       defaultZoom: 8,
       defaultLocation: { lat: 34.289129, lng: -117.646304 },
     }),
   ],
-
   schema: {
     types: [
       countyType,
