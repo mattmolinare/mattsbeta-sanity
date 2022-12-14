@@ -1,5 +1,5 @@
-import { Stack, TextInput } from "@sanity/ui";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import CoverPhotoUrlInput from "../components/cover-photo-url-input";
 
 const tripType = defineType({
   name: "trip",
@@ -92,14 +92,7 @@ const tripType = defineType({
       title: "Cover photo URL",
       type: "url",
       validation: (Rule) => Rule.required(),
-      components: {
-        input: ({ elementProps, value }) => (
-          <Stack space={3}>
-            <TextInput {...elementProps} />
-            {value && <img src={value} alt="" width="100%" />}
-          </Stack>
-        ),
-      },
+      components: { input: CoverPhotoUrlInput },
     }),
     defineField({
       name: "trackKey",
