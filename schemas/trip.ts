@@ -68,6 +68,12 @@ const tripType = defineType({
       validation: (Rule) => Rule.required().positive(),
     }),
     defineField({
+      name: "time",
+      title: "Time",
+      type: "number",
+      validation: (Rule) => Rule.required().positive(),
+    }),
+    defineField({
       name: "classRating",
       title: "Class rating",
       type: "number",
