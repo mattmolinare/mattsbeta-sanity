@@ -16,6 +16,11 @@ const peakListType = defineType({
       title: "Short name",
       type: "string",
     }),
+    defineField({
+      name: "link",
+      title: "Link",
+      type: "url",
+    }),
   ],
 });
 

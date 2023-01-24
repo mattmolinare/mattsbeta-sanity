@@ -29,6 +29,11 @@ const peakType = defineType({
       type: "array",
       of: [defineArrayMember({ type: "reference", to: { type: "peakList" } })],
     }),
+    defineField({
+      name: "link",
+      title: "Link",
+      type: "url",
+    }),
   ],
 });
 
