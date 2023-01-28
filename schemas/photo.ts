@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import PhotoPreview from "../components/photo-preview";
 
 const photoType = defineType({
   name: "photo",
@@ -24,24 +25,7 @@ const photoType = defineType({
     }),
   ],
   preview: { select: { url: "url", alt: "alt", caption: "caption" } },
-  components: {
-    preview: (props) => {
-      const value = props.value as any;
-
-      if (value === undefined) {
-        return null;
-      }
-
-      const { url, alt, caption } = value;
-
-      return (
-        <figure>
-          <img src={url} alt={alt} width="100%" />
-          <figcaption>{caption}</figcaption>
-        </figure>
-      );
-    },
-  },
+  components: { preview: PhotoPreview },
 });
 
 export default photoType;
