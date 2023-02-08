@@ -20,8 +20,7 @@ const peakType = defineType({
     defineField({
       name: "prominence",
       title: "Prominence",
-      type: "number",
-      validation: (Rule) => Rule.required(),
+      type: "number"
     }),
     defineField({
       name: "lists",
