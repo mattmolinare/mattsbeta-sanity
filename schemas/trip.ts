@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import CoverPhotoUrlInput from "../components/cover-photo-url-input";
+import CoverPhotoS3KeyInput from "../components/cover-photo-s3-key-input";
 
 const tripType = defineType({
   name: "trip",
@@ -94,15 +94,15 @@ const tripType = defineType({
       of: [defineArrayMember({ type: "reference", to: { type: "peak" } })],
     }),
     defineField({
-      name: "coverPhotoUrl",
-      title: "Cover photo URL",
-      type: "url",
+      name: "coverPhotoS3Key",
+      title: "Cover photo S3 key",
+      type: "string",
       validation: (Rule) => Rule.required(),
-      components: { input: CoverPhotoUrlInput },
+      components: { input: CoverPhotoS3KeyInput },
     }),
     defineField({
-      name: "trackKey",
-      title: "Track key",
+      name: "trackS3Key",
+      title: "Track S3 key",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),

@@ -7,9 +7,9 @@ const photoType = defineType({
   type: "object",
   fields: [
     defineField({
-      name: "url",
-      title: "URL",
-      type: "url",
+      name: "s3Key",
+      title: "S3 key",
+      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -24,7 +24,7 @@ const photoType = defineType({
       type: "string",
     }),
   ],
-  preview: { select: { url: "url", alt: "alt", caption: "caption" } },
+  preview: { select: { s3Key: "s3Key", alt: "alt", caption: "caption" } },
   components: { preview: PhotoPreview },
 });
 
