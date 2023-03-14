@@ -101,9 +101,10 @@ const tripType = defineType({
       components: { input: CoverPhotoS3KeyInput },
     }),
     defineField({
-      name: "trackS3Key",
-      title: "Track S3 key",
-      type: "string",
+      name: "track",
+      title: "Track",
+      type: "reference",
+      to: { type: "track" },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
