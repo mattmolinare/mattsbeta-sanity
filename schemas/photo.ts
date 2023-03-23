@@ -1,10 +1,10 @@
 import { defineField, defineType } from "sanity";
-import PhotoPreview from "../components/photo-preview";
 
 const photoType = defineType({
   name: "photo",
   title: "Photo",
-  type: "object",
+  type: "document",
+  readOnly: true,
   fields: [
     defineField({
       name: "s3Key",
@@ -13,19 +13,23 @@ const photoType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "alt",
-      title: "Alternative text",
-      type: "string",
-      initialValue: "",
+      name: "width",
+      title: "Width",
+      type: "number",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "caption",
-      title: "Caption",
+      name: "height",
+      title: "Height",
+      type: "number",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "placeholder",
+      title: "Placeholder",
       type: "string",
     }),
   ],
-  preview: { select: { s3Key: "s3Key", alt: "alt", caption: "caption" } },
-  components: { preview: PhotoPreview },
 });
 
 export default photoType;

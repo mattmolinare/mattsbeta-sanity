@@ -1,7 +1,7 @@
 import { PreviewProps } from "sanity";
 import { getUrl } from "../lib/s3";
 
-const PhotoPreview = (props: PreviewProps) => {
+const FigurePreview = (props: PreviewProps) => {
   const { s3Key, alt, caption } = props as any;
 
   return (
@@ -12,4 +12,4 @@ const PhotoPreview = (props: PreviewProps) => {
   );
 };
 
-export default PhotoPreview;
+export default FigurePreview;
