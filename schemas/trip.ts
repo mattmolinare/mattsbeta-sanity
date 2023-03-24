@@ -118,7 +118,6 @@ const tripType = defineType({
           styles: [{ title: "Normal", value: "normal" }],
         }),
         defineArrayMember({ type: "figure" }),
-        defineArrayMember({ type: "photo" }),
       ],
     }),
   ],
