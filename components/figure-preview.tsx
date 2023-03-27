@@ -5,7 +5,7 @@ const FigurePreview = (props: PreviewProps) => {
   const { s3Key, alt, caption } = props as any;
 
   if (s3Key === undefined) {
-    return null;
+    return props.renderDefault(props);
   }
 
   return (
