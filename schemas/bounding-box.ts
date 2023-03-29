@@ -6,14 +6,14 @@ const boundingBoxType = defineType({
   type: "object",
   fields: [
     defineField({
-      name: "northwest",
-      title: "Northwest",
+      name: "southwest",
+      title: "Southwest",
       type: "geopoint",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "southeast",
-      title: "Southeast",
+      name: "northeast",
+      title: "Northeast",
       type: "geopoint",
       validation: (Rule) => Rule.required(),
     }),
