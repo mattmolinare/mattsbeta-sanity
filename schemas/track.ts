@@ -18,6 +18,18 @@ const trackType = defineType({
       type: "boundingBox",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "startingPoint",
+      title: "Starting point",
+      type: "geopoint",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "endingPoint",
+      title: "Ending point",
+      type: "geopoint",
+      validation: (Rule) => Rule.required(),
+    }),
   ],
 });
 
