@@ -20,7 +20,13 @@ const peakType = defineType({
     defineField({
       name: "prominence",
       title: "Prominence",
-      type: "number"
+      type: "number",
+    }),
+    defineField({
+      name: "exact",
+      title: "Exact",
+      type: "boolean",
+      initialValue: true,
     }),
     defineField({
       name: "lists",
