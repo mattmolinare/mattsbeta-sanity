@@ -1,0 +1,6 @@
+name: mattsbeta-sanity
+dependencies:
+  - notebook
+  - pip
+  - pip:
+      - ndjson

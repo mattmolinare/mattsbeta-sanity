@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity";
 
-const photoType = defineType({
-  name: "photo",
-  title: "Photo",
+const trackType = defineType({
+  name: "track",
+  title: "Track",
   type: "document",
   readOnly: true,
   fields: [
@@ -13,23 +13,24 @@ const photoType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "width",
-      title: "Width",
-      type: "number",
+      name: "boundingBox",
+      title: "Bounding box",
+      type: "boundingBox",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "height",
-      title: "Height",
-      type: "number",
+      name: "startingPoint",
+      title: "Starting point",
+      type: "geopoint",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "placeholder",
-      title: "Placeholder",
-      type: "string",
+      name: "endingPoint",
+      title: "Ending point",
+      type: "geopoint",
+      validation: (Rule) => Rule.required(),
     }),
   ],
 });
 
-export default photoType;
+export default trackType;

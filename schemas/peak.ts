@@ -20,14 +20,18 @@ const peakType = defineType({
     defineField({
       name: "prominence",
       title: "Prominence",
-      type: "number",
-      validation: (Rule) => Rule.required(),
+      type: "number"
     }),
     defineField({
       name: "lists",
       title: "Lists",
       type: "array",
       of: [defineArrayMember({ type: "reference", to: { type: "peakList" } })],
+    }),
+    defineField({
+      name: "link",
+      title: "Link",
+      type: "url",
     }),
   ],
 });

@@ -2,11 +2,14 @@ import { googleMapsInput } from "@sanity/google-maps-input";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { deskTool } from "sanity/desk";
+import boundingBoxType from "./schemas/bounding-box";
 import countyType from "./schemas/county";
+import figureType from "./schemas/figure";
 import peakType from "./schemas/peak";
 import peakListType from "./schemas/peak-list";
 import photoType from "./schemas/photo";
 import protectedAreaType from "./schemas/protected-area";
+import trackType from "./schemas/track";
 import tripType from "./schemas/trip";
 
 export default defineConfig({
@@ -25,11 +28,14 @@ export default defineConfig({
   ],
   schema: {
     types: [
+      boundingBoxType,
       countyType,
+      figureType,
       peakType,
       peakListType,
       photoType,
       protectedAreaType,
+      trackType,
       tripType,
     ],
   },

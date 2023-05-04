@@ -5,6 +5,7 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
+    "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
@@ -15,27 +16,27 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/google-maps-input": "3.0.0",
-    "@sanity/ui": "^1.0.1",
-    "@sanity/vision": "3.0.6",
+    "@sanity/google-maps-input": "^3.0.1",
+    "@sanity/ui": "^1.3.0",
+    "@sanity/vision": "^3.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sanity": "^3.0.6",
-    "styled-components": "^5.2.0"
+    "sanity": "^3.7.1",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.1.2",
-    "@commitlint/config-conventional": "^17.1.0",
+    "@commitlint/cli": "^17.5.0",
+    "@commitlint/config-conventional": "^17.4.4",
     "@sanity/eslint-config-studio": "^2.0.1",
-    "eslint": "^8.6.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.2",
-    "eslint-plugin-import": "^2.26.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
-    "stylelint-config-prettier": "^9.0.3",
-    "typescript": "^4.0.0"
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "stylelint-config-prettier": "^9.0.5",
+    "typescript": "^4.9.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",

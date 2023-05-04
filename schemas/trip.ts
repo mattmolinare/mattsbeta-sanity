@@ -1,5 +1,4 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import CoverPhotoUrlInput from "../components/cover-photo-url-input";
 
 const tripType = defineType({
   name: "trip",
@@ -26,8 +25,8 @@ const tripType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "location",
-      title: "Location",
+      name: "trailhead",
+      title: "Trailhead",
       type: "geopoint",
       validation: (Rule) => Rule.required(),
     }),
@@ -68,6 +67,12 @@ const tripType = defineType({
       validation: (Rule) => Rule.required().positive(),
     }),
     defineField({
+      name: "duration",
+      title: "Duration",
+      type: "number",
+      validation: (Rule) => Rule.required().positive(),
+    }),
+    defineField({
       name: "classRating",
       title: "Class rating",
       type: "number",
@@ -88,16 +93,19 @@ const tripType = defineType({
       of: [defineArrayMember({ type: "reference", to: { type: "peak" } })],
     }),
     defineField({
-      name: "coverPhotoUrl",
-      title: "Cover photo URL",
-      type: "url",
+      name: "coverPhoto",
+      title: "Cover photo",
+      type: "reference",
+      to: { type: "photo" },
+      weak: true,
       validation: (Rule) => Rule.required(),
-      components: { input: CoverPhotoUrlInput },
     }),
     defineField({
-      name: "trackKey",
-      title: "Track key",
-      type: "string",
+      name: "track",
+      title: "Track",
+      type: "reference",
+      to: { type: "track" },
+      weak: true,
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -109,7 +117,7 @@ const tripType = defineType({
           type: "block",
           styles: [{ title: "Normal", value: "normal" }],
         }),
-        defineArrayMember({ type: "photo" }),
+        defineArrayMember({ type: "figure" }),
       ],
     }),
   ],
