@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import PhotoS3KeyInput from "../components/photo-s3-key-input";
 
 const photoType = defineType({
   name: "photo",
@@ -11,6 +12,9 @@ const photoType = defineType({
       title: "S3 key",
       type: "string",
       validation: (Rule) => Rule.required(),
+      components: {
+        input: PhotoS3KeyInput,
+      },
     }),
     defineField({
       name: "width",
