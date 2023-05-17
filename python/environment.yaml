@@ -1,6 +1,9 @@
 name: mattsbeta-sanity
 dependencies:
+  - beautifulsoup4
   - notebook
   - pip
+  - requests
+  - tqdm
   - pip:
       - ndjson
