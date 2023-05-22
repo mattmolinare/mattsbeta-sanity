@@ -15,6 +15,7 @@ const peakType = defineType({
       name: "location",
       title: "Location",
       type: "geopoint",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "elevation",
