@@ -5,6 +5,7 @@ import { deskTool } from "sanity/desk";
 import boundingBoxType from "./schemas/bounding-box";
 import countyType from "./schemas/county";
 import figureType from "./schemas/figure";
+import heightType from "./schemas/height";
 import peakType from "./schemas/peak";
 import peakListType from "./schemas/peak-list";
 import photoType from "./schemas/photo";
@@ -31,6 +32,7 @@ export default defineConfig({
       boundingBoxType,
       countyType,
       figureType,
+      heightType,
       peakType,
       peakListType,
       photoType,
