@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import PhotoPreview from "../components/photo-preview";
 import PhotoS3KeyInput from "../components/photo-s3-key-input";
 
 const photoType = defineType({
@@ -34,6 +35,14 @@ const photoType = defineType({
       type: "string",
     }),
   ],
+  preview: {
+    select: {
+      s3Key: "s3Key",
+    },
+  },
+  components: {
+    preview: PhotoPreview,
+  },
 });
 
 export default photoType;
