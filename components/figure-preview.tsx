@@ -1,8 +1,15 @@
 import { PreviewProps } from "sanity";
 import { getUrl } from "../lib/s3";
 
-const FigurePreview = (props: PreviewProps) => {
-  const { s3Key, alt, caption } = props as any;
+type FigurePreviewProps = PreviewProps &
+  Partial<{
+    s3Key: string;
+    alt: string;
+    caption: string;
+  }>;
+
+const FigurePreview = (props: FigurePreviewProps) => {
+  const { s3Key, alt, caption } = props;
 
   if (s3Key === undefined) {
     return props.renderDefault(props);
@@ -11,7 +18,7 @@ const FigurePreview = (props: PreviewProps) => {
   return (
     <figure>
       <img src={getUrl(s3Key)} alt={alt} width="100%" />
-      <figcaption>{caption}</figcaption>
+      {caption !== undefined && <figcaption>{caption}</figcaption>}
     </figure>
   );
 };

@@ -1,6 +1,7 @@
+import path from "path";
+import { format, isValid, parse } from "date-fns";
 import { defineField, defineType } from "sanity";
-import PhotoPreview from "../components/photo-preview";
-import PhotoS3KeyInput from "../components/photo-s3-key-input";
+import { getUrl } from "../lib/s3";
 
 const photoType = defineType({
   name: "photo",
@@ -13,9 +14,6 @@ const photoType = defineType({
       title: "S3 key",
       type: "string",
       validation: (Rule) => Rule.required(),
-      components: {
-        input: PhotoS3KeyInput,
-      },
     }),
     defineField({
       name: "width",
@@ -39,9 +37,17 @@ const photoType = defineType({
     select: {
       s3Key: "s3Key",
     },
-  },
-  components: {
-    preview: PhotoPreview,
+    prepare: ({ s3Key }) => {
+      const date = parse(path.parse(s3Key).name, "yyyyMMddHHmmss", new Date());
+
+      return {
+        title: s3Key,
+        subtitle: isValid(date) ? format(date, "PP @ p") : undefined,
+        media: (
+          <img src={getUrl(s3Key)} alt="" style={{ objectFit: "cover" }} />
+        ),
+      };
+    },
   },
 });
 
