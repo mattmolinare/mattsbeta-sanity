@@ -1,7 +1,6 @@
 import path from "path";
 import { format, isValid, parse } from "date-fns";
 import { defineField, defineType } from "sanity";
-import { getUrl } from "../lib/s3";
 
 const photoType = defineType({
   name: "photo",
