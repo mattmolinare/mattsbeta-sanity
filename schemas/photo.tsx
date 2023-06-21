@@ -1,5 +1,5 @@
-import path from "path";
 import { format, isValid, parse } from "date-fns";
+import path from "path-browserify";
 import { defineField, defineType } from "sanity";
 
 const photoType = defineType({
