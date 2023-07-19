@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import ReportInput from "../components/report-input";
 
 const tripType = defineType({
   name: "trip",
@@ -119,6 +120,9 @@ const tripType = defineType({
         }),
         defineArrayMember({ type: "figure" }),
       ],
+      components: {
+        input: ReportInput,
+      },
     }),
   ],
 });
