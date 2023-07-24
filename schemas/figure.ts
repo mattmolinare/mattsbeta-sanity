@@ -25,12 +25,18 @@ const figureType = defineType({
       title: "Caption",
       type: "string",
     }),
+    defineField({
+      name: "hidden",
+      title: "Hidden",
+      type: "boolean",
+    }),
   ],
   preview: {
     select: {
       s3Key: "photo.s3Key",
       alt: "alt",
       caption: "caption",
+      hidden: "hidden",
     },
   },
   components: { preview: FigurePreview },
