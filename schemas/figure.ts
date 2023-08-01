@@ -23,7 +23,7 @@ const figureType = defineType({
     defineField({
       name: "caption",
       title: "Caption",
-      type: "string",
+      type: "text",
     }),
     defineField({
       name: "hidden",
