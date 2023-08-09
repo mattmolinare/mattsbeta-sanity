@@ -1,5 +1,15 @@
 import { AddIcon } from "@sanity/icons";
-import { Box, Button, Flex, Stack, TextInput, useToast } from "@sanity/ui";
+import {
+  Box,
+  Button,
+  Dialog,
+  Flex,
+  Grid,
+  Stack,
+  Text,
+  TextInput,
+  useToast,
+} from "@sanity/ui";
 import { randomKey } from "@sanity/util/content";
 import endent from "endent";
 import { useCallback, useState } from "react";
@@ -65,16 +75,20 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
 
     toast.push({
       status: "success",
-      title: `${ids.length} figure${ids.length === 1 ? "" : "s"} added`,
+      title: `${ids.length} figure${
+        ids.length === 1 ? "" : "s"
+      } successfully added to the trip report`,
       closable: true,
     });
   }, [query]);
 
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <Stack space={3}>
       {props.renderDefault(props)}
-      <Flex gap={1}>
-        <Box flex={1}>
+      <Flex direction={["column", "column", "row"]} gap={1}>
+        <Box flex={["auto", "auto", 1]}>
           <TextInput
             placeholder="Type to search photos"
             value={inputValue}
@@ -94,8 +108,41 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
               : `Add ${count} figure${count === 1 ? "" : "s"}`
           }
           mode="ghost"
-          onClick={handleClick}
+          onClick={() => {
+            setDialogOpen(true);
+          }}
         />
+        {dialogOpen && (
+          <Dialog
+            id="add-figures-dialog"
+            header="Add figures?"
+            footer={
+              <Grid columns={2} gap={2} paddingX={4} paddingY={3}>
+                <Button
+                  text="Cancel"
+                  mode="ghost"
+                  onClick={() => {
+                    setDialogOpen(false);
+                  }}
+                />
+                <Button
+                  text="Add now"
+                  tone="positive"
+                  disabled={count === null || count === 0}
+                  onClick={handleClick}
+                />
+              </Grid>
+            }
+            onClose={() => {
+              setDialogOpen(false);
+            }}
+            width={1}
+          >
+            <Box padding={4}>
+              <Text>Add {count} figures to the trip report?</Text>
+            </Box>
+          </Dialog>
+        )}
       </Flex>
     </Stack>
   );
