@@ -12,6 +12,7 @@ import photoType from "./schemas/photo";
 import protectedAreaType from "./schemas/protected-area";
 import trackType from "./schemas/track";
 import tripType from "./schemas/trip";
+import waypointType from "./schemas/waypoint";
 
 export default defineConfig({
   name: "default",
@@ -39,6 +40,7 @@ export default defineConfig({
       protectedAreaType,
       trackType,
       tripType,
+      waypointType,
     ],
   },
 });

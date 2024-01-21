@@ -96,6 +96,12 @@ const tripType = defineType({
       of: [defineArrayMember({ type: "reference", to: { type: "peak" } })],
     }),
     defineField({
+      name: "waypoints",
+      title: "Waypoints",
+      type: "array",
+      of: [defineArrayMember({ type: "waypoint" })],
+    }),
+    defineField({
       name: "coverPhoto",
       title: "Cover photo",
       type: "reference",
