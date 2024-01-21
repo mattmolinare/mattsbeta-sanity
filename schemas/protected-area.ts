@@ -1,9 +1,9 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 const protectedAreaType = defineType({
   name: "protectedArea",
   title: "Protected area",
-  type: "object",
+  type: "document",
   fields: [
     defineField({
       name: "name",
@@ -12,10 +12,13 @@ const protectedAreaType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "manager",
-      title: "Manager",
-      type: "string",
-      validation: (Rule) => Rule.required(),
+      name: "landManagers",
+      title: "Land managers",
+      type: "array",
+      of: [
+        defineArrayMember({ type: "reference", to: { type: "landManager" } }),
+      ],
+      validation: (Rule) => Rule.required().min(1),
     }),
   ],
 });
