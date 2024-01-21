@@ -6,13 +6,13 @@ import boundingBoxType from "./schemas/bounding-box";
 import countyType from "./schemas/county";
 import figureType from "./schemas/figure";
 import landManager from "./schemas/land-manager";
+import landmarkType from "./schemas/landmark";
 import peakType from "./schemas/peak";
 import peakListType from "./schemas/peak-list";
 import photoType from "./schemas/photo";
 import protectedAreaType from "./schemas/protected-area";
 import trackType from "./schemas/track";
 import tripType from "./schemas/trip";
-import waypointType from "./schemas/waypoint";
 
 export default defineConfig({
   name: "default",
@@ -34,13 +34,13 @@ export default defineConfig({
       countyType,
       figureType,
       landManager,
+      landmarkType,
       peakType,
       peakListType,
       photoType,
       protectedAreaType,
       trackType,
       tripType,
-      waypointType,
     ],
   },
 });

@@ -1,20 +1,20 @@
 import { defineField, defineType } from "sanity";
 
-const waypointType = defineType({
-  name: "waypoint",
-  title: "Waypoint",
+const landmarkType = defineType({
+  name: "landmark",
+  title: "Landmark",
   type: "object",
   fields: [
-    defineField({
-      name: "location",
-      title: "Location",
-      type: "geopoint",
-      validation: (Rule) => Rule.required(),
-    }),
     defineField({
       name: "name",
       title: "Name",
       type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "location",
+      title: "Location",
+      type: "geopoint",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -32,4 +32,4 @@ const waypointType = defineType({
   ],
 });
 
-export default waypointType;
+export default landmarkType;

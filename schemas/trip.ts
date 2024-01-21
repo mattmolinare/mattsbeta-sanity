@@ -90,16 +90,13 @@ const tripType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "peaks",
-      title: "Peaks",
-      type: "array",
-      of: [defineArrayMember({ type: "reference", to: { type: "peak" } })],
-    }),
-    defineField({
       name: "waypoints",
       title: "Waypoints",
       type: "array",
-      of: [defineArrayMember({ type: "waypoint" })],
+      of: [
+        defineArrayMember({ type: "landmark" }),
+        defineArrayMember({ type: "reference", to: { type: "peak" } }),
+      ],
     }),
     defineField({
       name: "coverPhoto",
