@@ -61,12 +61,12 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
         ids.map((id) => ({
           _key: randomKey(12),
           _type: "figure",
-          alt: "",
           photo: {
             _ref: id,
             _type: "reference",
             _weak: true,
           },
+          hidden: true,
         })),
         "after",
         [-1]
