@@ -115,6 +115,16 @@ const tripType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "stravaLink",
+      title: "Strava link",
+      type: "url",
+    }),
+    defineField({
+      name: "peakbaggerLink",
+      title: "Peakbagger link",
+      type: "url",
+    }),
+    defineField({
       name: "report",
       title: "Report",
       type: "array",
