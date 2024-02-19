@@ -98,7 +98,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
           />
         </Box>
         <Button
-          disabled={count === null || count === 0}
+          disabled={!inputValue || count === null || count === 0}
           icon={count !== null && count > 0 ? AddIcon : undefined}
           text={
             count === null
