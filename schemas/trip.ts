@@ -1,3 +1,4 @@
+import { ArrowTopRightIcon, LinkIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 import ReportInput from "../components/report-input";
 
@@ -132,6 +133,37 @@ const tripType = defineType({
         defineArrayMember({
           type: "block",
           styles: [{ title: "Normal", value: "normal" }],
+          marks: {
+            annotations: [
+              {
+                name: "externalLink",
+                title: "External link",
+                icon: ArrowTopRightIcon,
+                type: "object",
+                fields: [
+                  {
+                    name: "link",
+                    title: "Link",
+                    type: "url",
+                  },
+                ],
+              },
+              {
+                name: "tripLink",
+                title: "Trip link",
+                icon: LinkIcon,
+                type: "object",
+                fields: [
+                  {
+                    name: "trip",
+                    title: "Trip",
+                    type: "reference",
+                    to: [{ type: "trip" }],
+                  },
+                ],
+              },
+            ],
+          },
         }),
         defineArrayMember({ type: "figure" }),
       ],
