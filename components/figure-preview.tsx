@@ -1,5 +1,4 @@
 import { PreviewProps } from "sanity";
-import { getUrl } from "../lib/s3";
 
 type FigurePreviewProps = PreviewProps &
   Partial<{
@@ -22,7 +21,11 @@ const FigurePreview = (props: FigurePreviewProps) => {
         opacity: hidden === true ? "40%" : "100%",
       }}
     >
-      <img src={getUrl(s3Key)} alt={alt} width="100%" />
+      <img
+        src={`https://d33d9wdzzxzwu3.cloudfront.net/${s3Key}`}
+        alt={alt}
+        width="100%"
+      />
       {caption !== undefined && <figcaption>{caption}</figcaption>}
     </figure>
   );
