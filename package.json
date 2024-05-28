@@ -10,7 +10,7 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "keywords": [
     "sanity"
@@ -32,8 +32,8 @@
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.0",
-    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@sanity/eslint-config-studio": "^2.0.1",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^18.2.15",
@@ -41,14 +41,14 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
     "prettier": "^2.8.7",
     "stylelint-config-prettier": "^9.0.5",
     "typescript": "^4.9.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
-    "*.{ts,tsx,md,json}": "prettier --write"
+    "*.{ts,tsx,json}": "prettier --write"
   }
 }
