@@ -29,7 +29,7 @@ const tripType = defineType({
     defineField({
       name: "trailhead",
       title: "Trailhead",
-      type: "geopoint",
+      type: "point",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

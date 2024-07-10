@@ -107,6 +107,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
               ? "No figures found"
               : `Add ${count} figure${count === 1 ? "" : "s"}`
           }
+          fontSize={1}
           mode="ghost"
           onClick={() => {
             setDialogOpen(true);

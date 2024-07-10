@@ -10,6 +10,7 @@ import landmarkType from "./schemas/landmark";
 import peakType from "./schemas/peak";
 import peakListType from "./schemas/peak-list";
 import photoType from "./schemas/photo";
+import pointType from "./schemas/point";
 import protectedAreaType from "./schemas/protected-area";
 import trackType from "./schemas/track";
 import tripType from "./schemas/trip";
@@ -38,6 +39,7 @@ export default defineConfig({
       peakType,
       peakListType,
       photoType,
+      pointType,
       protectedAreaType,
       trackType,
       tripType,

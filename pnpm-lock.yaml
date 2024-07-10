@@ -29,6 +29,9 @@ dependencies:
   endent:
     specifier: ^2.1.0
     version: 2.1.0
+  geo-coordinates-parser:
+    specifier: ^1.7.3
+    version: 1.7.3
   path-browserify:
     specifier: ^1.0.1
     version: 1.0.1
@@ -4283,6 +4286,7 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
     dev: false
+    bundledDependencies: false
 
   /crelt@1.0.6:
     resolution: {integrity: sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==}
@@ -5358,6 +5362,10 @@ packages:
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
+
+  /geo-coordinates-parser@1.7.3:
+    resolution: {integrity: sha512-zrMUPAVXAZRhEF2VFQEl9mR0yK9BZ+/n0G79uBHVg8XTsm7Ci0L2zGgW+p+h/Sq/8i6X3WSVfpp4t8n9kepXqg==}
+    dev: false
 
   /get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}

@@ -14,7 +14,7 @@ const landmarkType = defineType({
     defineField({
       name: "location",
       title: "Location",
-      type: "geopoint",
+      type: "point",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
