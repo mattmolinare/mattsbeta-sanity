@@ -1,6 +1,7 @@
 import { ArrowTopRightIcon, LinkIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 import ReportInput from "../components/report-input";
+import VehicleTypeInput from "../components/vehicle-type-input";
 
 const tripType = defineType({
   name: "trip",
@@ -31,6 +32,25 @@ const tripType = defineType({
       title: "Trailhead",
       type: "point",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "vehicleType",
+      title: "Vehicle type",
+      type: "string",
+      options: {
+        list: [
+          { title: "4x4", value: "4x4" },
+          { title: "High clearance", value: "high-clearance" },
+          { title: "Car", value: "car" },
+          { title: "Bus", value: "bus" },
+          { title: "Bicycle", value: "bicycle" },
+          { title: "Boat", value: "boat" },
+        ],
+        layout: "radio",
+      },
+      components: {
+        input: VehicleTypeInput,
+      },
     }),
     defineField({
       name: "county",
