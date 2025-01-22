@@ -1,17 +1,17 @@
-{
-  "extends": [
+module.exports = {
+  extends: [
     "@sanity/eslint-config-studio",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "prettier"
+    "prettier",
   ],
-  "plugins": ["import"],
-  "rules": {
+  plugins: ["import"],
+  rules: {
     "sort-imports": [
       "error",
       {
-        "ignoreDeclarationSort": true
-      }
+        ignoreDeclarationSort: true,
+      },
     ],
     "import/first": "error",
     "import/newline-after-import": "error",
@@ -19,12 +19,12 @@
     "import/order": [
       "error",
       {
-        "alphabetize": {
-          "order": "asc"
+        alphabetize: {
+          order: "asc",
         },
-        "newlines-between": "never"
-      }
+        "newlines-between": "never",
+      },
     ],
-    "react-hooks/exhaustive-deps": "off"
-  }
-}
+    "react-hooks/exhaustive-deps": "off",
+  },
+};
