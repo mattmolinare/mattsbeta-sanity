@@ -8,6 +8,7 @@ const VehicleTypeInput = (props: StringInputProps) => (
       text="Clear"
       fontSize={1}
       mode="ghost"
+      disabled={props.value === undefined}
       onClick={() => props.onChange(unset())}
     />
   </Stack>
