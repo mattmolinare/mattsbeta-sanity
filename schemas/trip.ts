@@ -136,6 +136,11 @@ const tripType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "trackHidden",
+      title: "Track hidden",
+      type: "boolean",
+    }),
+    defineField({
       name: "stravaLink",
       title: "Strava link",
       type: "url",
