@@ -16,7 +16,7 @@ import { useCallback, useState } from "react";
 import type { ArrayOfObjectsInputProps } from "sanity";
 import { insert, setIfMissing } from "sanity";
 import { useListeningQuery } from "sanity-plugin-utils";
-import useDebouncedValue from "../hooks/debounced-value";
+import useDebouncedCallback from "../hooks/debounced-callback";
 import useSanityClient from "../hooks/sanity-client";
 
 const ReportInput = (props: ArrayOfObjectsInputProps) => {
@@ -24,14 +24,16 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
 
   const client = useSanityClient();
 
-  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState("");
 
-  const debouncedInputValue = useDebouncedValue(inputValue);
+  const [debouncedValue, setDebouncedValue] = useState("");
+
+  const debouncedCallback = useDebouncedCallback(setDebouncedValue, 500);
 
   const query = endent`
     *[
       _type == "photo" &&
-      s3Key match "*${debouncedInputValue}*"
+      s3Key match "*${debouncedValue}*"
     ]
   `;
 
@@ -44,7 +46,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
     {}
   );
 
-  const handleClick = useCallback(async () => {
+  const addFigures = useCallback(async () => {
     const ids = await client.fetch<string[]>(endent`
       ${query}
       | order(s3Key asc)
@@ -91,14 +93,16 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
         <Box flex={["auto", "auto", 1]}>
           <TextInput
             placeholder="Type to search photos"
-            value={inputValue}
-            onChange={(event) => {
-              setInputValue(event.currentTarget.value);
+            value={value}
+            onChange={({ currentTarget: { value } }) => {
+              setValue(value);
+
+              debouncedCallback(value);
             }}
           />
         </Box>
         <Button
-          disabled={!inputValue || typeof count !== "number" || count === 0}
+          disabled={!value || typeof count !== "number" || count === 0}
           icon={typeof count === "number" && count > 0 ? AddIcon : undefined}
           text={
             typeof count !== "number"
@@ -109,9 +113,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
           }
           fontSize={1}
           mode="ghost"
-          onClick={() => {
-            setDialogOpen(true);
-          }}
+          onClick={() => setDialogOpen(true)}
         />
         {dialogOpen && typeof count === "number" && (
           <Dialog
@@ -130,18 +132,16 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
                   text="Add now"
                   tone="positive"
                   disabled={count === 0}
-                  onClick={handleClick}
+                  onClick={() => addFigures()}
                 />
               </Grid>
             }
-            onClose={() => {
-              setDialogOpen(false);
-            }}
+            onClose={() => setDialogOpen(false)}
             width={1}
           >
             <Box padding={4}>
               <Text>{`Add ${count} figure${
-                count === 1 ? "s" : ""
+                count === 1 ? "" : "s"
               } to the trip report?`}</Text>
             </Box>
           </Dialog>
