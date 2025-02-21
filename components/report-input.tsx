@@ -98,10 +98,10 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
           />
         </Box>
         <Button
-          disabled={!inputValue || count === null || count === 0}
-          icon={count !== null && count > 0 ? AddIcon : undefined}
+          disabled={!inputValue || typeof count !== "number" || count === 0}
+          icon={typeof count === "number" && count > 0 ? AddIcon : undefined}
           text={
-            count === null
+            typeof count !== "number"
               ? "Add figures"
               : count === 0
               ? "No figures found"
@@ -113,7 +113,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
             setDialogOpen(true);
           }}
         />
-        {dialogOpen && (
+        {dialogOpen && typeof count === "number" && (
           <Dialog
             id="add-figures-dialog"
             header="Add figures?"
@@ -129,7 +129,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
                 <Button
                   text="Add now"
                   tone="positive"
-                  disabled={count === null || count === 0}
+                  disabled={count === 0}
                   onClick={handleClick}
                 />
               </Grid>
@@ -140,7 +140,9 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
             width={1}
           >
             <Box padding={4}>
-              <Text>Add {count} figures to the trip report?</Text>
+              <Text>{`Add ${count} figure${
+                count === 1 ? "s" : ""
+              } to the trip report?`}</Text>
             </Box>
           </Dialog>
         )}
