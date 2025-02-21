@@ -136,8 +136,8 @@ const tripType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "trackHidden",
-      title: "Track hidden",
+      name: "mapHidden",
+      title: "Map hidden",
       type: "boolean",
     }),
     defineField({
