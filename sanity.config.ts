@@ -1,4 +1,3 @@
-// import { googleMapsInput } from "@sanity/google-maps-input";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { deskTool } from "sanity/desk";
@@ -20,15 +19,7 @@ export default defineConfig({
   title: "mattsbeta",
   projectId: "orjpg8ll",
   dataset: "production",
-  plugins: [
-    deskTool(),
-    visionTool(),
-    // googleMapsInput({
-    //   apiKey: import.meta.env.SANITY_STUDIO_GOOGLE_MAPS_API_KEY,
-    //   defaultZoom: 8,
-    //   defaultLocation: { lat: 34.289129, lng: -117.646304 },
-    // }),
-  ],
+  plugins: [deskTool(), visionTool()],
   schema: {
     types: [
       boundingBoxType,
