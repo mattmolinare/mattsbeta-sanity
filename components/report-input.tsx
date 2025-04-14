@@ -16,7 +16,7 @@ import { useCallback, useState } from "react";
 import type { ArrayOfObjectsInputProps } from "sanity";
 import { insert, setIfMissing } from "sanity";
 import { useListeningQuery } from "sanity-plugin-utils";
-import useDebouncedCallback from "../hooks/debounced-callback";
+import { useDebouncedValue } from "../hooks/debounce";
 import useSanityClient from "../hooks/sanity-client";
 
 const ReportInput = (props: ArrayOfObjectsInputProps) => {
@@ -26,9 +26,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
 
   const [value, setValue] = useState("");
 
-  const [debouncedValue, setDebouncedValue] = useState("");
-
-  const debouncedCallback = useDebouncedCallback(setDebouncedValue, 500);
+  const [debouncedValue, setDebouncedValue] = useDebouncedValue("", 500);
 
   const query = endent`
     *[
@@ -96,8 +94,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
             value={value}
             onChange={({ currentTarget: { value } }) => {
               setValue(value);
-
-              debouncedCallback(value);
+              setDebouncedValue(value);
             }}
           />
         </Box>
@@ -124,9 +121,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
                 <Button
                   text="Cancel"
                   mode="ghost"
-                  onClick={() => {
-                    setDialogOpen(false);
-                  }}
+                  onClick={() => setDialogOpen(false)}
                 />
                 <Button
                   text="Add now"
