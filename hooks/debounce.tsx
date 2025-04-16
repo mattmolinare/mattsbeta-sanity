@@ -23,5 +23,5 @@ export const useDebouncedValue = <T extends any>(
 ) => {
   const [value, setValue] = useState(initialValue);
 
-  return [value, useDebouncedCallback(setValue, delay)];
+  return [value, useDebouncedCallback(setValue, delay)] as const;
 };
