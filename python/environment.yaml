@@ -1,9 +1,13 @@
 name: mattsbeta-sanity
+channels:
+  - conda-forge
+  - defaults
 dependencies:
   - beautifulsoup4
+  - black
   - notebook
   - pip
-  - requests
-  - tqdm
   - pip:
       - ndjson
+  - requests
+  - tqdm
