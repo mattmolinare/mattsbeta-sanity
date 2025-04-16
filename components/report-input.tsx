@@ -45,11 +45,13 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
   );
 
   const addFigures = useCallback(async () => {
-    const ids = await client.fetch<string[]>(endent`
-      ${query}
-      | order(s3Key asc)
-      ._id
-    `);
+    const ids = await client.fetch<string[]>(
+      endent`
+        ${query}
+        | order(s3Key asc)
+        ._id
+      `
+    );
 
     if (ids.length === 0) {
       return;
