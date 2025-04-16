@@ -1,6 +1,6 @@
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
-import { deskTool } from "sanity/desk";
+import { structureTool } from "sanity/structure";
 import boundingBoxType from "./schemas/bounding-box";
 import countyType from "./schemas/county";
 import figureType from "./schemas/figure";
@@ -19,7 +19,7 @@ export default defineConfig({
   title: "mattsbeta",
   projectId: "orjpg8ll",
   dataset: "production",
-  plugins: [deskTool(), visionTool()],
+  plugins: [structureTool(), visionTool()],
   schema: {
     types: [
       boundingBoxType,
