@@ -23,11 +23,9 @@ const landmarkType = defineType({
       type: "text",
     }),
     defineField({
-      name: "photo",
-      title: "Photo",
-      type: "reference",
-      to: { type: "photo" },
-      weak: true,
+      name: "photoS3Key",
+      title: "Photo S3 key",
+      type: "photoS3Key",
     }),
   ],
 });

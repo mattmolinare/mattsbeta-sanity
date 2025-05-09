@@ -15,9 +15,7 @@ const PointInput = (props: ObjectInputProps<GeopointValue>) => {
           <TextInput
             placeholder="Enter coordinates"
             value={inputValue}
-            onChange={(event) => {
-              setInputValue(event.currentTarget.value);
-            }}
+            onChange={(event) => setInputValue(event.currentTarget.value)}
           />
         </Box>
         <Button

@@ -120,11 +120,9 @@ const tripType = defineType({
       ],
     }),
     defineField({
-      name: "coverPhoto",
-      title: "Cover photo",
-      type: "reference",
-      to: { type: "photo" },
-      weak: true,
+      name: "coverPhotoS3Key",
+      title: "Cover photo S3 key",
+      type: "photoS3Key",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

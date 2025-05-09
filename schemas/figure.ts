@@ -7,11 +7,9 @@ const figureType = defineType({
   type: "object",
   fields: [
     defineField({
-      name: "photo",
-      title: "Photo",
-      type: "reference",
-      to: { type: "photo" },
-      weak: true,
+      name: "photoS3Key",
+      title: "Photo S3 key",
+      type: "photoS3Key",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -33,7 +31,7 @@ const figureType = defineType({
   ],
   preview: {
     select: {
-      s3Key: "photo.s3Key",
+      s3Key: "photoS3Key",
       alt: "alt",
       caption: "caption",
       hidden: "hidden",

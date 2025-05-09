@@ -8,7 +8,7 @@ import landManager from "./schemas/land-manager";
 import landmarkType from "./schemas/landmark";
 import peakType from "./schemas/peak";
 import peakListType from "./schemas/peak-list";
-import photoType from "./schemas/photo";
+import photoS3KeyType from "./schemas/photo-s3-key";
 import pointType from "./schemas/point";
 import protectedAreaType from "./schemas/protected-area";
 import trackType from "./schemas/track";
@@ -18,7 +18,7 @@ export default defineConfig({
   name: "default",
   title: "mattsbeta",
   projectId: "orjpg8ll",
-  dataset: "production",
+  dataset: "dev",
   plugins: [structureTool(), visionTool()],
   schema: {
     types: [
@@ -29,7 +29,7 @@ export default defineConfig({
       landmarkType,
       peakType,
       peakListType,
-      photoType,
+      photoS3KeyType,
       pointType,
       protectedAreaType,
       trackType,
