@@ -3,9 +3,9 @@ import { useCallback, useRef, useState } from "react";
 export const useDebouncedCallback = <T extends any[]>(
   callback: (...args: T) => void,
   delay: number,
-  deps: React.DependencyList = []
+  deps: React.DependencyList = [],
 ) => {
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>(undefined);
 
   return useCallback(
     (...args: T) => {
@@ -13,13 +13,13 @@ export const useDebouncedCallback = <T extends any[]>(
 
       timeoutRef.current = setTimeout(() => callback(...args), delay);
     },
-    [delay, ...deps]
+    [delay, ...deps],
   );
 };
 
 export const useDebouncedValue = <T extends any>(
   initialValue: T,
-  delay: number
+  delay: number,
 ) => {
   const [value, setValue] = useState(initialValue);
 
