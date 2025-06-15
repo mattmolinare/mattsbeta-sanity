@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import FigurePreview from "../components/figure-preview";
+import FigureCaptionInput from "../components/figure-caption-input";
 
 const figureType = defineType({
   name: "figure",
@@ -22,6 +23,9 @@ const figureType = defineType({
       name: "caption",
       title: "Caption",
       type: "text",
+      components: {
+        input: FigureCaptionInput,
+      },
     }),
     defineField({
       name: "hidden",
@@ -37,7 +41,9 @@ const figureType = defineType({
       hidden: "hidden",
     },
   },
-  components: { preview: FigurePreview },
+  components: {
+    preview: FigurePreview,
+  },
 });
 
 export default figureType;
