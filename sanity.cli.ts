@@ -5,4 +5,5 @@ export default defineCliConfig({
     projectId: "orjpg8ll",
     dataset: "dev",
   },
+  autoUpdates: true,
 });
