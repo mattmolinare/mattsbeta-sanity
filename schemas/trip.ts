@@ -9,6 +9,52 @@ const tripType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "report",
+      title: "Report",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "block",
+          styles: [{ title: "Normal", value: "normal" }],
+          marks: {
+            annotations: [
+              {
+                name: "externalLink",
+                title: "External link",
+                icon: ArrowTopRightIcon,
+                type: "object",
+                fields: [
+                  {
+                    name: "link",
+                    title: "Link",
+                    type: "url",
+                  },
+                ],
+              },
+              {
+                name: "tripLink",
+                title: "Trip link",
+                icon: LinkIcon,
+                type: "object",
+                fields: [
+                  {
+                    name: "trip",
+                    title: "Trip",
+                    type: "reference",
+                    to: [{ type: "trip" }],
+                  },
+                ],
+              },
+            ],
+          },
+        }),
+        defineArrayMember({ type: "figure" }),
+      ],
+      components: {
+        input: ReportInput,
+      },
+    }),
+    defineField({
       name: "name",
       title: "Name",
       type: "string",
@@ -149,52 +195,6 @@ const tripType = defineType({
       name: "peakbaggerLink",
       title: "Peakbagger link",
       type: "url",
-    }),
-    defineField({
-      name: "report",
-      title: "Report",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          marks: {
-            annotations: [
-              {
-                name: "externalLink",
-                title: "External link",
-                icon: ArrowTopRightIcon,
-                type: "object",
-                fields: [
-                  {
-                    name: "link",
-                    title: "Link",
-                    type: "url",
-                  },
-                ],
-              },
-              {
-                name: "tripLink",
-                title: "Trip link",
-                icon: LinkIcon,
-                type: "object",
-                fields: [
-                  {
-                    name: "trip",
-                    title: "Trip",
-                    type: "reference",
-                    to: [{ type: "trip" }],
-                  },
-                ],
-              },
-            ],
-          },
-        }),
-        defineArrayMember({ type: "figure" }),
-      ],
-      components: {
-        input: ReportInput,
-      },
     }),
   ],
 });
