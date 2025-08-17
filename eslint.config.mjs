@@ -1,5 +1,6 @@
 import eslint from "@eslint/js";
 import studio from "@sanity/eslint-config-studio";
+import eslintConfigPrettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import tselint from "typescript-eslint";
 
@@ -9,6 +10,7 @@ export default tselint.config(
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   ...studio,
+  eslintConfigPrettier,
   {
     rules: {
       "sort-imports": [
