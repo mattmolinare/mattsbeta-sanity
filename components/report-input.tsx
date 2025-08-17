@@ -41,7 +41,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
         ${query}
       )
     `,
-    {}
+    {},
   );
 
   const addFigures = useCallback(async () => {
@@ -50,7 +50,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
         ${query}
         | order(s3Key asc)
         ._id
-      `
+      `,
     );
 
     if (ids.length === 0) {
@@ -71,7 +71,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
           hidden: true,
         })),
         "after",
-        [-1]
+        [-1],
       ),
     ]);
 
@@ -107,8 +107,8 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
             typeof count !== "number"
               ? "Add figures"
               : count === 0
-              ? "No figures found"
-              : `Add ${count} figure${count === 1 ? "" : "s"}`
+                ? "No figures found"
+                : `Add ${count} figure${count === 1 ? "" : "s"}`
           }
           fontSize={1}
           mode="ghost"

@@ -1,6 +1,7 @@
 import { TextArea } from "@sanity/ui";
 import { startTransition, useRef, useState } from "react";
-import { set, TextInputProps } from "sanity";
+import type { TextInputProps } from "sanity";
+import { set } from "sanity";
 
 const FigureCaptionInput = (props: TextInputProps) => {
   const [value, setValue] = useState(props.value);

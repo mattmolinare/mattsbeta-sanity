@@ -1,7 +1,8 @@
 import { Box, Button, Flex, Stack, TextInput, useToast } from "@sanity/ui";
 import { convert } from "geo-coordinates-parser";
 import { useState } from "react";
-import { GeopointValue, ObjectInputProps, set } from "sanity";
+import type { GeopointValue, ObjectInputProps } from "sanity";
+import { set } from "sanity";
 
 const PointInput = (props: ObjectInputProps<GeopointValue>) => {
   const toast = useToast();
@@ -32,9 +33,9 @@ const PointInput = (props: ObjectInputProps<GeopointValue>) => {
                 set({
                   lat: converted.decimalLatitude,
                   lng: converted.decimalLongitude,
-                })
+                }),
               );
-            } catch (error) {
+            } catch {
               toast.push({
                 status: "error",
                 title: "Error parsing coordinates",
