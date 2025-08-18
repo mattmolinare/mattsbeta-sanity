@@ -79,7 +79,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
       status: "success",
       title: `${ids.length} figure${
         ids.length === 1 ? "" : "s"
-      } successfully added to the trip report`,
+      } added to the trip report`,
       closable: true,
     });
   }, [query]);
