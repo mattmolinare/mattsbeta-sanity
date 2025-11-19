@@ -111,6 +111,12 @@ const tripType = defineType({
       to: { type: "protectedArea" },
     }),
     defineField({
+      name: "region",
+      title: "Region",
+      type: "reference",
+      to: { type: "region" },
+    }),
+    defineField({
       name: "routeType",
       title: "Route type",
       type: "string",
