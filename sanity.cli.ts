@@ -5,5 +5,7 @@ export default defineCliConfig({
     projectId: "orjpg8ll",
     dataset: "production",
   },
-  autoUpdates: true,
+  deployment: {
+    autoUpdates: true,
+  },
 });

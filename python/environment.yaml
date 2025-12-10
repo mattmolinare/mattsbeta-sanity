@@ -9,5 +9,6 @@ dependencies:
   - pip
   - pip:
       - ndjson
+  - python-slugify
   - requests
   - tqdm
