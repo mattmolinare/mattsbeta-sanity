@@ -11,6 +11,13 @@ const regionType = defineType({
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "name" },
+      validation: (Rule) => Rule.required(),
+    }),
   ],
 });
 
