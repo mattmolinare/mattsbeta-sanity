@@ -115,6 +115,7 @@ const tripType = defineType({
       title: "Region",
       type: "reference",
       to: { type: "region" },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "routeType",
