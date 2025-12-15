@@ -55,6 +55,14 @@ const tripType = defineType({
       },
     }),
     defineField({
+      name: "coverPhoto",
+      title: "Cover photo",
+      type: "reference",
+      to: { type: "photo" },
+      weak: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "name",
       title: "Name",
       type: "string",
@@ -171,14 +179,6 @@ const tripType = defineType({
         defineArrayMember({ type: "landmark" }),
         defineArrayMember({ type: "reference", to: { type: "peak" } }),
       ],
-    }),
-    defineField({
-      name: "coverPhoto",
-      title: "Cover photo",
-      type: "reference",
-      to: { type: "photo" },
-      weak: true,
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "track",
