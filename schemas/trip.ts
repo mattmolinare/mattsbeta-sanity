@@ -199,6 +199,11 @@ const tripType = defineType({
       title: "Peakbagger link",
       type: "url",
     }),
+    defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
+    }),
   ],
 });
 
