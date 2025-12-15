@@ -93,12 +93,8 @@ const tripType = defineType({
       type: "string",
       options: {
         list: [
-          { title: "4x4", value: "4x4" },
-          { title: "High clearance", value: "high-clearance" },
           { title: "Car", value: "car" },
-          { title: "Bus", value: "bus" },
-          { title: "Bicycle", value: "bicycle" },
-          { title: "Boat", value: "boat" },
+          { title: "4x4", value: "4x4" },
         ],
         layout: "radio",
       },
