@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
-import FigurePreview from "../components/figure-preview";
 import FigureCaptionInput from "../components/figure-caption-input";
+import FigurePreview from "../components/figure-preview";
 
 const figureType = defineType({
   name: "figure",

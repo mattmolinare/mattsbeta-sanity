@@ -1,5 +1,6 @@
 import { Button, Stack } from "@sanity/ui";
-import { StringInputProps, unset } from "sanity";
+import type { StringInputProps } from "sanity";
+import { unset } from "sanity";
 
 const VehicleTypeInput = (props: StringInputProps) => (
   <Stack space={2}>

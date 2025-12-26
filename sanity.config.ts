@@ -11,6 +11,7 @@ import peakListType from "./schemas/peak-list";
 import photoS3KeyType from "./schemas/photo-s3-key";
 import pointType from "./schemas/point";
 import protectedAreaType from "./schemas/protected-area";
+import regionType from "./schemas/region";
 import trackType from "./schemas/track";
 import tripType from "./schemas/trip";
 
@@ -32,6 +33,7 @@ export default defineConfig({
       photoS3KeyType,
       pointType,
       protectedAreaType,
+      regionType,
       trackType,
       tripType,
     ],

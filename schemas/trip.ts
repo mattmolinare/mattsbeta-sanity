@@ -85,12 +85,8 @@ const tripType = defineType({
       type: "string",
       options: {
         list: [
-          { title: "4x4", value: "4x4" },
-          { title: "High clearance", value: "high-clearance" },
           { title: "Car", value: "car" },
-          { title: "Bus", value: "bus" },
-          { title: "Bicycle", value: "bicycle" },
-          { title: "Boat", value: "boat" },
+          { title: "4x4", value: "4x4" },
         ],
         layout: "radio",
       },
@@ -109,6 +105,13 @@ const tripType = defineType({
       title: "Protected area",
       type: "reference",
       to: { type: "protectedArea" },
+    }),
+    defineField({
+      name: "region",
+      title: "Region",
+      type: "reference",
+      to: { type: "region" },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "routeType",
@@ -193,6 +196,11 @@ const tripType = defineType({
       name: "peakbaggerLink",
       title: "Peakbagger link",
       type: "url",
+    }),
+    defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
     }),
   ],
 });
