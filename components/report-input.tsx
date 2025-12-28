@@ -11,63 +11,50 @@ import {
   useToast,
 } from "@sanity/ui";
 import { randomKey } from "@sanity/util/content";
-import endent from "endent";
-import { useCallback, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 import type { ArrayOfObjectsInputProps } from "sanity";
 import { insert, setIfMissing } from "sanity";
-import { useListeningQuery } from "sanity-plugin-utils";
-import { useDebouncedValue } from "../hooks/debounce";
-import useSanityClient from "../hooks/sanity-client";
+import { queryPhotoCount, queryPhotos } from "../lib/supabase";
 
 const ReportInput = (props: ArrayOfObjectsInputProps) => {
   const toast = useToast();
 
-  const client = useSanityClient();
-
   const [value, setValue] = useState("");
 
-  const [debouncedValue, setDebouncedValue] = useDebouncedValue("", 500);
+  const [photoCount, setPhotoCount] = useState<number | null>(null);
 
-  const query = endent`
-    *[
-      _type == "photo" &&
-      s3Key match "*${debouncedValue}*"
-    ]
-  `;
+  useEffect(() => {
+    let isSuspended = true;
 
-  const { data: count } = useListeningQuery<number>(
-    endent`
-      count(
-        ${query}
-      )
-    `,
-    {},
-  );
+    const timeout = setTimeout(async () => {
+      const photoCount = await queryPhotoCount(value);
+
+      if (isSuspended) {
+        startTransition(() => setPhotoCount(photoCount));
+      }
+    }, 300);
+
+    return () => {
+      isSuspended = false;
+
+      clearTimeout(timeout);
+    };
+  }, [value]);
 
   const addFigures = useCallback(async () => {
-    const ids = await client.fetch<string[]>(
-      endent`
-        ${query}
-        | order(s3Key asc)
-        ._id
-      `,
-    );
+    const photos = await queryPhotos(value);
 
-    if (ids.length === 0) {
+    if (photos.length === 0) {
       return;
     }
 
     props.onChange([
       setIfMissing([]),
       insert(
-        ids.map((id) => ({
+        photos.map((photo) => ({
           _key: randomKey(12),
           _type: "figure",
-          photo: {
-            _ref: id,
-            _type: "reference",
-            _weak: true,
-          },
+          photoS3Key: photo.s3Key,
           hidden: true,
         })),
         "after",
@@ -77,12 +64,12 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
 
     toast.push({
       status: "success",
-      title: `${ids.length} figure${
-        ids.length === 1 ? "" : "s"
+      title: `${photos.length} figure${
+        photos.length === 1 ? "" : "s"
       } added to the trip report`,
       closable: true,
     });
-  }, [query]);
+  }, [value]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -94,27 +81,28 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
           <TextInput
             placeholder="Type to search photos"
             value={value}
-            onChange={({ currentTarget: { value } }) => {
-              setValue(value);
-              setDebouncedValue(value);
-            }}
+            onChange={(event) => setValue(event.currentTarget.value)}
           />
         </Box>
         <Button
-          disabled={!value || typeof count !== "number" || count === 0}
-          icon={typeof count === "number" && count > 0 ? AddIcon : undefined}
+          disabled={!value || !photoCount}
+          icon={
+            typeof photoCount === "number" && photoCount > 0
+              ? AddIcon
+              : undefined
+          }
           text={
-            typeof count !== "number"
+            photoCount === undefined
               ? "Add figures"
-              : count === 0
-                ? "No figures found"
-                : `Add ${count} figure${count === 1 ? "" : "s"}`
+              : photoCount === 0
+                ? "No photos found"
+                : `Add ${photoCount} figure${photoCount === 1 ? "" : "s"}`
           }
           fontSize={1}
           mode="ghost"
           onClick={() => setDialogOpen(true)}
         />
-        {dialogOpen && typeof count === "number" && (
+        {dialogOpen && photoCount !== undefined && (
           <Dialog
             id="add-figures-dialog"
             header="Add figures?"
@@ -128,8 +116,8 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
                 <Button
                   text="Add now"
                   tone="positive"
-                  disabled={count === 0}
-                  onClick={() => addFigures()}
+                  disabled={photoCount === 0}
+                  onClick={addFigures}
                 />
               </Grid>
             }
@@ -137,8 +125,8 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
             width={1}
           >
             <Box padding={4}>
-              <Text>{`Add ${count} figure${
-                count === 1 ? "" : "s"
+              <Text>{`Add ${photoCount} figure${
+                photoCount === 1 ? "" : "s"
               } to the trip report?`}</Text>
             </Box>
           </Dialog>

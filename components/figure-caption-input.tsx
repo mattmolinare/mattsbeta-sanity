@@ -1,27 +1,31 @@
 import { TextArea } from "@sanity/ui";
-import { startTransition, useRef, useState } from "react";
-import type { TextInputProps } from "sanity";
+import { useEffect, useState } from "react";
 import { set } from "sanity";
+import type { TextInputProps } from "sanity";
 
 const FigureCaptionInput = (props: TextInputProps) => {
   const [value, setValue] = useState(props.value);
 
-  const timeoutRef = useRef<NodeJS.Timeout>(undefined);
+  useEffect(() => {
+    let isSuspended = true;
+
+    const timeout = setTimeout(() => {
+      if (isSuspended) {
+        props.onChange(set(value));
+      }
+    }, 1000);
+
+    return () => {
+      isSuspended = false;
+
+      clearTimeout(timeout);
+    };
+  }, [value]);
 
   return (
     <TextArea
       value={value}
-      onChange={({ currentTarget: { value } }) => {
-        setValue(value);
-
-        startTransition(() => {
-          clearTimeout(timeoutRef.current);
-
-          timeoutRef.current = setTimeout(() => {
-            props.onChange(set(value));
-          }, 1000);
-        });
-      }}
+      onChange={(event) => setValue(event.currentTarget.value)}
       rows={10}
       style={{
         resize: "vertical",

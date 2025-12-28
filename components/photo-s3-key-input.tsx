@@ -1,10 +1,10 @@
 import { Autocomplete, Card, Flex, Stack, Text } from "@sanity/ui";
-import { useRef, useState } from "react";
-import { set, StringInputProps, unset } from "sanity";
-import supabase from "../lib/supabase";
-import endent from "endent";
 import { format, isValid, parse } from "date-fns";
 import path from "path-browserify";
+import { startTransition, useEffect, useState } from "react";
+import type { StringInputProps } from "sanity";
+import { set, unset } from "sanity";
+import { queryPhotos } from "../lib/supabase";
 
 type Photo = {
   s3Key: string;
@@ -12,11 +12,37 @@ type Photo = {
 };
 
 const PhotoS3KeyInput = (props: StringInputProps) => {
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const [query, setQuery] = useState<string | null>(null);
 
   const [photos, setPhotos] = useState<Photo[] | null>(null);
 
-  const [loading, setLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    if (query === null) {
+      return;
+    }
+
+    let isSuspended = true;
+
+    const timeout = setTimeout(async () => {
+      const photos = await queryPhotos(query);
+
+      if (isSuspended) {
+        startTransition(() => {
+          setPhotos(photos);
+
+          setIsFetching(false);
+        });
+      }
+    }, 300);
+
+    return () => {
+      isSuspended = false;
+
+      clearTimeout(timeout);
+    };
+  }, [query]);
 
   return (
     <Autocomplete
@@ -30,51 +56,21 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       popover={{
         animate: true,
       }}
-      loading={loading}
+      loading={isFetching}
+      openButton
+      onChange={(value) => props.onChange(value ? set(value) : unset())}
       onQueryChange={(query) => {
+        setQuery(query);
+
         setPhotos(null);
 
-        if (query === null) {
-          return;
-        }
-
-        setLoading(true);
-
-        clearTimeout(timeoutRef.current);
-
-        timeoutRef.current = setTimeout(async () => {
-          const { data: photos } = await supabase
-            .from("photo")
-            .select(
-              endent`
-                s3Key:s3_key,
-                placeholder
-              `
-            )
-            .ilike("s3_key", `%${query}%`)
-            .order("s3_key", {
-              ascending: true,
-            })
-            .limit(100)
-            .overrideTypes<
-              Photo[],
-              {
-                merge: false;
-              }
-            >()
-            .throwOnError();
-
-          setPhotos(photos);
-
-          setLoading(false);
-        }, 300);
+        setIsFetching(query !== null);
       }}
-      onChange={(value) => props.onChange(value ? set(value) : unset())}
       renderOption={(option) => {
         const date = parse(
           path.parse(option.value).name,
           "yyyyMMddHHmmss",
-          new Date()
+          new Date(),
         );
 
         return (

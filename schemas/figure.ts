@@ -35,7 +35,7 @@ const figureType = defineType({
   ],
   preview: {
     select: {
-      s3Key: "photoS3Key",
+      photoS3Key: "photoS3Key",
       alt: "alt",
       caption: "caption",
       hidden: "hidden",

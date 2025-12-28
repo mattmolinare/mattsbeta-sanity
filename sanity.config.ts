@@ -19,7 +19,7 @@ export default defineConfig({
   name: "default",
   title: "mattsbeta",
   projectId: "orjpg8ll",
-  dataset: "dev",
+  dataset: "production",
   plugins: [structureTool(), visionTool()],
   schema: {
     types: [

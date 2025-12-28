@@ -4,18 +4,18 @@ import type { PreviewProps } from "sanity";
 
 type FigurePreviewProps = PreviewProps &
   Partial<{
-    s3Key: string;
+    photoS3Key: string;
     alt: string;
     caption: string;
     hidden?: boolean;
   }>;
 
 const FigurePreview = (props: FigurePreviewProps) => {
-  const { s3Key, alt, caption, hidden } = props;
+  const { photoS3Key, alt, caption, hidden } = props;
 
   const toast = useToast();
 
-  if (s3Key === undefined) {
+  if (photoS3Key === undefined) {
     return props.renderDefault(props);
   }
 
@@ -24,15 +24,15 @@ const FigurePreview = (props: FigurePreviewProps) => {
       <Flex justify="flex-end">
         <Button
           icon={CopyIcon}
-          text="Copy S3 key"
+          text="Copy photo S3 key"
           mode="ghost"
           fontSize={1}
           onClick={() => {
-            navigator.clipboard.writeText(s3Key);
+            navigator.clipboard.writeText(photoS3Key);
 
             toast.push({
               status: "success",
-              title: "S3 key copied",
+              title: "Photo S3 key copied",
               closable: true,
               duration: 1000,
             });
@@ -45,7 +45,7 @@ const FigurePreview = (props: FigurePreviewProps) => {
         }}
       >
         <img
-          src={`https://d33d9wdzzxzwu3.cloudfront.net/${s3Key}`}
+          src={`https://d33d9wdzzxzwu3.cloudfront.net/${photoS3Key}`}
           alt={alt}
           width="100%"
         />
