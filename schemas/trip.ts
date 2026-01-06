@@ -1,5 +1,6 @@
 import { ArrowTopRightIcon, LinkIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import CoverPhotoS3KeyInput from "../components/cover-photo-s3-key-input";
 import ReportInput from "../components/report-input";
 import VehicleTypeInput from "../components/vehicle-type-input";
 
@@ -173,6 +174,9 @@ const tripType = defineType({
       title: "Cover photo S3 key",
       type: "photoS3Key",
       validation: (Rule) => Rule.required(),
+      components: {
+        input: CoverPhotoS3KeyInput,
+      },
     }),
     defineField({
       name: "track",

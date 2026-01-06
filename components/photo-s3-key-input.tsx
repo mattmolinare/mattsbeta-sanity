@@ -1,6 +1,5 @@
 import { Autocomplete, Card, Flex, Stack, Text } from "@sanity/ui";
 import { format, isValid, parse } from "date-fns";
-import path from "path-browserify";
 import { startTransition, useEffect, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
@@ -67,11 +66,12 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
         setIsFetching(query !== null);
       }}
       renderOption={(option) => {
-        const date = parse(
-          path.parse(option.value).name,
-          "yyyyMMddHHmmss",
-          new Date(),
-        );
+        const match = option.value.match(/^photos\/.*\/(\d{14})_\d+x\d+\.jpg$/);
+
+        let date;
+        if (match) {
+          date = parse(match[1], "yyyyMMddHHmmss", new Date());
+        }
 
         return (
           <Card as="button">
@@ -90,7 +90,7 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
                 <Text size={1} weight="medium" textOverflow="ellipsis">
                   {option.value}
                 </Text>
-                {isValid(date) && (
+                {date && isValid(date) && (
                   <Text size={1} muted textOverflow="ellipsis">
                     {format(date, "PP 'at' p")}
                   </Text>
