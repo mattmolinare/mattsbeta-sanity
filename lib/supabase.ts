@@ -34,7 +34,6 @@ export const queryPhotos = async (query: string) => {
     .order("s3_key", {
       ascending: true,
     })
-    .limit(100)
     .overrideTypes<
       {
         s3Key: string;
