@@ -1,10 +1,11 @@
 import eslint from "@eslint/js";
 import studio from "@sanity/eslint-config-studio";
+import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import tselint from "typescript-eslint";
 
-export default tselint.config(
+export default defineConfig(
   eslint.configs.recommended,
   tselint.configs.recommended,
   importPlugin.flatConfigs.recommended,
