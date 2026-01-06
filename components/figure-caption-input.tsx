@@ -13,7 +13,7 @@ const FigureCaptionInput = (props: TextInputProps) => {
       if (isSuspended) {
         props.onChange(set(value));
       }
-    }, 1000);
+    }, 300);
 
     return () => {
       isSuspended = false;
