@@ -10,6 +10,19 @@ const tripType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "name",
+      title: "Name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "name" },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "report",
       title: "Report",
       type: "array",
@@ -56,17 +69,13 @@ const tripType = defineType({
       },
     }),
     defineField({
-      name: "name",
-      title: "Name",
-      type: "string",
+      name: "coverPhotoS3Key",
+      title: "Cover photo S3 key",
+      type: "photoS3Key",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "name" },
-      validation: (Rule) => Rule.required(),
+      components: {
+        input: CoverPhotoS3KeyInput,
+      },
     }),
     defineField({
       name: "date",
@@ -168,15 +177,6 @@ const tripType = defineType({
         defineArrayMember({ type: "landmark" }),
         defineArrayMember({ type: "reference", to: { type: "peak" } }),
       ],
-    }),
-    defineField({
-      name: "coverPhotoS3Key",
-      title: "Cover photo S3 key",
-      type: "photoS3Key",
-      validation: (Rule) => Rule.required(),
-      components: {
-        input: CoverPhotoS3KeyInput,
-      },
     }),
     defineField({
       name: "track",
