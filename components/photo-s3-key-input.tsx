@@ -105,3 +105,18 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
 };
 
 export default PhotoS3KeyInput;
+
+export const PhotoS3KeyInputWithPreview = (props: StringInputProps) => {
+  return (
+    <Stack space={2}>
+      <PhotoS3KeyInput {...props} />
+      {props.value && (
+        <img
+          src={`https://d33d9wdzzxzwu3.cloudfront.net/${props.value}`}
+          alt=""
+          width="100%"
+        />
+      )}
+    </Stack>
+  );
+};

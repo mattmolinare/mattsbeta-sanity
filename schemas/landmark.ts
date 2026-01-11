@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { PhotoS3KeyInputWithPreview } from "../components/photo-s3-key-input";
 
 const landmarkType = defineType({
   name: "landmark",
@@ -26,6 +27,9 @@ const landmarkType = defineType({
       name: "photoS3Key",
       title: "Photo S3 key",
       type: "photoS3Key",
+      components: {
+        input: PhotoS3KeyInputWithPreview,
+      },
     }),
   ],
 });
