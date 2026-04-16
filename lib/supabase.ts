@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import endent from "endent";
+import type { Photo } from "../types/supabase";
 
 const client = createClient(
   process.env.SANITY_STUDIO_SUPABASE_URL!,
@@ -25,8 +26,6 @@ export const queryPhotos = async (query: string) => {
     .select(
       endent`
         s3Key:s3_key,
-        width,
-        height,
         placeholder
       `,
     )
@@ -35,12 +34,7 @@ export const queryPhotos = async (query: string) => {
       ascending: true,
     })
     .overrideTypes<
-      {
-        s3Key: string;
-        width: number;
-        height: number;
-        placeholder: string;
-      }[],
+      Photo[],
       {
         merge: false;
       }

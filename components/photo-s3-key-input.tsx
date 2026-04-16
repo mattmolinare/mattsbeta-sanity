@@ -4,11 +4,7 @@ import { startTransition, useEffect, useRef, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
 import { queryPhotos } from "../lib/supabase";
-
-type Photo = {
-  s3Key: string;
-  placeholder: string;
-};
+import type { Photo } from "../types/supabase";
 
 const PhotoS3KeyInput = (props: StringInputProps) => {
   const [photos, setPhotos] = useState<Photo[] | null>(null);
