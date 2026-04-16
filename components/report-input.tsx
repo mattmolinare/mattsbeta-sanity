@@ -11,38 +11,50 @@ import {
   useToast,
 } from "@sanity/ui";
 import { randomKey } from "@sanity/util/content";
-import { startTransition, useCallback, useEffect, useState } from "react";
+import {
+  startTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { ArrayOfObjectsInputProps } from "sanity";
 import { insert, setIfMissing } from "sanity";
 import { queryPhotoCount, queryPhotos } from "../lib/supabase";
 
-const ReportInput = (props: ArrayOfObjectsInputProps) => {
-  const toast = useToast();
+const usePhotoCount = (query: string) => {
+  const [photoCount, setPhotoCount] = useState<number>();
 
-  const [value, setValue] = useState("");
-
-  const [photoCount, setPhotoCount] = useState<number | null>(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
-    let isSuspended = true;
-
     const timeout = setTimeout(async () => {
-      const photoCount = await queryPhotoCount(value);
+      const requestId = ++requestIdRef.current;
 
-      if (isSuspended) {
+      const photoCount = await queryPhotoCount(query);
+
+      if (requestId === requestIdRef.current) {
         startTransition(() => setPhotoCount(photoCount));
       }
     }, 300);
 
     return () => {
-      isSuspended = false;
-
       clearTimeout(timeout);
     };
-  }, [value]);
+  }, [query]);
+
+  return photoCount;
+};
+
+const ReportInput = (props: ArrayOfObjectsInputProps) => {
+  const toast = useToast();
+
+  const [inputValue, setInputValue] = useState("");
+
+  const photoCount = usePhotoCount(inputValue);
 
   const addFigures = useCallback(async () => {
-    const photos = await queryPhotos(value);
+    const photos = await queryPhotos(inputValue);
 
     if (photos.length === 0) {
       return;
@@ -69,7 +81,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
       } added to the trip report`,
       closable: true,
     });
-  }, [value]);
+  }, [inputValue]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -80,17 +92,13 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
         <Box flex={["auto", "auto", 1]}>
           <TextInput
             placeholder="Type to search photos"
-            value={value}
-            onChange={(event) => setValue(event.currentTarget.value)}
+            value={inputValue}
+            onChange={(event) => setInputValue(event.currentTarget.value)}
           />
         </Box>
         <Button
-          disabled={!value || !photoCount}
-          icon={
-            typeof photoCount === "number" && photoCount > 0
-              ? AddIcon
-              : undefined
-          }
+          disabled={!inputValue || !photoCount}
+          icon={photoCount ? AddIcon : undefined}
           text={
             photoCount === undefined
               ? "Add figures"
@@ -102,7 +110,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
           mode="ghost"
           onClick={() => setDialogOpen(true)}
         />
-        {dialogOpen && photoCount !== undefined && (
+        {dialogOpen && photoCount && (
           <Dialog
             id="add-figures-dialog"
             header="Add figures?"
@@ -113,12 +121,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
                   mode="ghost"
                   onClick={() => setDialogOpen(false)}
                 />
-                <Button
-                  text="Add now"
-                  tone="positive"
-                  disabled={photoCount === 0}
-                  onClick={addFigures}
-                />
+                <Button text="Add now" tone="positive" onClick={addFigures} />
               </Grid>
             }
             onClose={() => setDialogOpen(false)}

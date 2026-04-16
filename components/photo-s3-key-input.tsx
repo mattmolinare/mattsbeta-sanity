@@ -1,6 +1,6 @@
 import { Autocomplete, Card, Flex, Stack, Text } from "@sanity/ui";
 import { format, isValid, parse } from "date-fns";
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
 import { queryPhotos } from "../lib/supabase";
@@ -11,37 +11,38 @@ type Photo = {
 };
 
 const PhotoS3KeyInput = (props: StringInputProps) => {
-  const [query, setQuery] = useState<string | null>(null);
-
   const [photos, setPhotos] = useState<Photo[] | null>(null);
 
-  const [isFetching, setIsFetching] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  const timeoutRef = useRef<NodeJS.Timeout>(undefined);
+
+  const requestIdRef = useRef(0);
+
+  const handleQueryChange = (query: string | null) => {
+    setPhotos(null);
+
     if (query === null) {
       return;
     }
 
-    let isSuspended = true;
+    setIsLoading(true);
 
-    const timeout = setTimeout(async () => {
+    timeoutRef.current = setTimeout(async () => {
+      const requestId = ++requestIdRef.current;
+
       const photos = await queryPhotos(query);
 
-      if (isSuspended) {
+      if (requestId === requestIdRef.current) {
         startTransition(() => {
           setPhotos(photos);
-
-          setIsFetching(false);
+          setIsLoading(false);
         });
       }
     }, 300);
+  };
 
-    return () => {
-      isSuspended = false;
-
-      clearTimeout(timeout);
-    };
-  }, [query]);
+  useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
   return (
     <Autocomplete
@@ -55,16 +56,10 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       popover={{
         animate: true,
       }}
-      loading={isFetching}
+      loading={isLoading}
       openButton
       onChange={(value) => props.onChange(value ? set(value) : unset())}
-      onQueryChange={(query) => {
-        setQuery(query);
-
-        setPhotos(null);
-
-        setIsFetching(query !== null);
-      }}
+      onQueryChange={handleQueryChange}
       renderOption={(option) => {
         const match = option.value.match(/^photos\/.*\/(\d{14})_\d+x\d+\.jpg$/);
 
