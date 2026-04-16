@@ -1,8 +1,9 @@
 import { Autocomplete, Card, Flex, Stack, Text } from "@sanity/ui";
 import { format, isValid, parse } from "date-fns";
-import { startTransition, useEffect, useRef, useState } from "react";
+import { startTransition, useRef, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
+import useTimeoutRef from "../hooks/timeout-ref";
 import { queryPhotos } from "../lib/supabase";
 import type { Photo } from "../types/supabase";
 
@@ -11,7 +12,7 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const timeoutRef = useRef<NodeJS.Timeout>(undefined);
+  const timeoutRef = useTimeoutRef();
 
   const requestIdRef = useRef(0);
 
@@ -37,8 +38,6 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       }
     }, 300);
   };
-
-  useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
   return (
     <Autocomplete
