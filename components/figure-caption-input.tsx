@@ -7,17 +7,9 @@ const FigureCaptionInput = (props: TextInputProps) => {
   const [value, setValue] = useState(props.value);
 
   useEffect(() => {
-    let isSuspended = true;
-
-    const timeout = setTimeout(() => {
-      if (isSuspended) {
-        props.onChange(set(value));
-      }
-    }, 300);
+    const timeout = setTimeout(() => props.onChange(set(value)), 300);
 
     return () => {
-      isSuspended = false;
-
       clearTimeout(timeout);
     };
   }, [value]);
