@@ -1,6 +1,6 @@
 import { Autocomplete, Card, Flex, Stack, Text } from "@sanity/ui";
 import { format } from "date-fns";
-import { startTransition, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
 import useTimeoutRef from "../hooks/timeout-ref";
@@ -34,10 +34,9 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       const photos = await queryPhotos(query);
 
       if (requestId === requestIdRef.current) {
-        startTransition(() => {
-          setPhotos(photos);
-          setIsLoading(false);
-        });
+        setPhotos(photos);
+
+        setIsLoading(false);
       }
     }, 300);
   };
