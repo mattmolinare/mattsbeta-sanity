@@ -26,6 +26,8 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
 
     setIsLoading(true);
 
+    clearTimeout(timeoutRef.current);
+
     timeoutRef.current = setTimeout(async () => {
       const requestId = ++requestIdRef.current;
 
