@@ -11,6 +11,7 @@ const figureType = defineType({
       name: "photoS3Key",
       title: "Photo S3 key",
       type: "photoS3Key",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "alt",

@@ -10,9 +10,10 @@ const photoS3KeyType = defineType({
     input: PhotoS3KeyInput,
   },
   validation: (Rule) =>
-    Rule.required().custom(
+    Rule.custom(
       (value) =>
-        (value !== undefined && parsePhotoS3Key(value) !== null) ||
+        value === undefined ||
+        parsePhotoS3Key(value) !== null ||
         "Invalid format",
     ),
 });
