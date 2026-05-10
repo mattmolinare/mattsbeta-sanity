@@ -11,8 +11,6 @@ import type { Photo } from "../types/supabase";
 const PhotoS3KeyInput = (props: StringInputProps) => {
   const [photos, setPhotos] = useState<Photo[] | null>(null);
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const timeoutRef = useTimeoutRef();
 
   const requestIdRef = useRef(0);
@@ -24,8 +22,6 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       return;
     }
 
-    setIsLoading(true);
-
     clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(async () => {
@@ -35,8 +31,6 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
 
       if (requestId === requestIdRef.current) {
         setPhotos(photos);
-
-        setIsLoading(false);
       }
     }, 300);
   };
@@ -53,7 +47,6 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       popover={{
         animate: true,
       }}
-      loading={isLoading}
       openButton
       onChange={(value) => props.onChange(value ? set(value) : unset())}
       onQueryChange={handleQueryChange}
