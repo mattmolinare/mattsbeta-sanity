@@ -1,4 +1,5 @@
-import { ArrowTopRightIcon, LinkIcon } from "@sanity/icons";
+import ArrowTopRightIcon from "@sanity/icons/ArrowTopRight";
+import LinkIcon from "@sanity/icons/Link";
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { PhotoS3KeyInputWithPreview } from "../components/photo-s3-key-input";
 import ReportInput from "../components/report-input";

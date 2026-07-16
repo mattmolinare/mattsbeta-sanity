@@ -66,7 +66,7 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
                   borderRadius: 1,
                 }}
               />
-              <Stack space={2}>
+              <Stack gap={2}>
                 <Text size={1} weight="medium" textOverflow="ellipsis">
                   {option.value}
                 </Text>

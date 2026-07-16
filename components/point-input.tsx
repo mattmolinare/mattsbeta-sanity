@@ -10,7 +10,7 @@ const PointInput = (props: ObjectInputProps<GeopointValue>) => {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <Stack space={6}>
+    <Stack gap={6}>
       <Flex direction="row" gap={1}>
         <Box flex={1}>
           <TextInput

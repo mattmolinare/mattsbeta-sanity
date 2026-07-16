@@ -1,4 +1,4 @@
-import { CopyIcon } from "@sanity/icons";
+import CopyIcon from "@sanity/icons/Copy";
 import { Button, Flex, Stack, useToast } from "@sanity/ui";
 import type { PreviewProps } from "sanity";
 
@@ -20,7 +20,7 @@ const FigurePreview = (props: FigurePreviewProps) => {
   }
 
   return (
-    <Stack space={1}>
+    <Stack gap={1}>
       <Flex justify="flex-end">
         <Button
           icon={CopyIcon}

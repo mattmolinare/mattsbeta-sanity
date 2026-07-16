@@ -3,7 +3,7 @@ import type { StringInputProps } from "sanity";
 import { unset } from "sanity";
 
 const VehicleTypeInput = (props: StringInputProps) => (
-  <Stack space={2}>
+  <Stack gap={2}>
     {props.renderDefault(props)}
     <Button
       text="Clear"

@@ -1,4 +1,4 @@
-import { AddIcon } from "@sanity/icons";
+import AddIcon from "@sanity/icons/Add";
 import {
   Box,
   Button,
@@ -115,7 +115,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
             id="add-figures-dialog"
             header="Add figures?"
             footer={
-              <Grid columns={2} gap={2} paddingX={4} paddingY={3}>
+              <Grid gridTemplateColumns={2} gap={2} paddingX={4} paddingY={3}>
                 <Button
                   text="Cancel"
                   mode="ghost"
