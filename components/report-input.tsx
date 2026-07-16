@@ -11,16 +11,10 @@ import {
   useToast,
 } from "@sanity/ui";
 import { randomKey } from "@sanity/util/content";
-import {
-  startTransition,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ArrayOfObjectsInputProps } from "sanity";
 import { insert, setIfMissing } from "sanity";
-import { queryPhotoCount, queryPhotos } from "../lib/supabase";
+import { queryPhotoCount, queryPhotoS3Keys } from "../lib/s3";
 
 const usePhotoCount = (query: string) => {
   const [photoCount, setPhotoCount] = useState<number>();
@@ -33,8 +27,10 @@ const usePhotoCount = (query: string) => {
 
       const photoCount = await queryPhotoCount(query);
 
+      console.log("photoCount", photoCount);
+
       if (requestId === requestIdRef.current) {
-        startTransition(() => setPhotoCount(photoCount));
+        setPhotoCount(photoCount);
       }
     }, 300);
 
@@ -54,19 +50,19 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
   const photoCount = usePhotoCount(inputValue);
 
   const addFigures = useCallback(async () => {
-    const photos = await queryPhotos(inputValue);
+    const photoS3Keys = await queryPhotoS3Keys(inputValue);
 
-    if (photos.length === 0) {
+    if (photoS3Keys.length === 0) {
       return;
     }
 
     props.onChange([
       setIfMissing([]),
       insert(
-        photos.map((photo) => ({
+        photoS3Keys.map((photoS3Key) => ({
           _key: randomKey(12),
           _type: "figure",
-          photoS3Key: photo.s3Key,
+          photoS3Key,
           hidden: true,
         })),
         "after",
@@ -76,8 +72,8 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
 
     toast.push({
       status: "success",
-      title: `${photos.length} figure${
-        photos.length === 1 ? "" : "s"
+      title: `${photoS3Keys.length} figure${
+        photoS3Keys.length === 1 ? "" : "s"
       } added to the trip report`,
       closable: true,
     });
@@ -86,7 +82,7 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <Stack space={3}>
+    <Stack gap={3}>
       {props.renderDefault(props)}
       <Flex direction={["column", "column", "row"]} gap={1}>
         <Box flex={["auto", "auto", 1]}>

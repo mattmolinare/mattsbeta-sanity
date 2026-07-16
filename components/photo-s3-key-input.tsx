@@ -4,19 +4,17 @@ import { useRef, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
 import useTimeoutRef from "../hooks/timeout-ref";
-import { parsePhotoS3Key } from "../lib/s3";
-import { queryPhotos } from "../lib/supabase";
-import type { Photo } from "../types/supabase";
+import { getPhotoUrl, parsePhotoS3Key, queryPhotoS3Keys } from "../lib/s3";
 
 const PhotoS3KeyInput = (props: StringInputProps) => {
-  const [photos, setPhotos] = useState<Photo[] | null>(null);
+  const [values, setValues] = useState<string[] | null>(null);
 
   const timeoutRef = useTimeoutRef();
 
   const requestIdRef = useRef(0);
 
   const handleQueryChange = (query: string | null) => {
-    setPhotos(null);
+    setValues(null);
 
     if (query === null) {
       return;
@@ -27,10 +25,10 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
     timeoutRef.current = setTimeout(async () => {
       const requestId = ++requestIdRef.current;
 
-      const photos = await queryPhotos(query);
+      const values = await queryPhotoS3Keys(query);
 
       if (requestId === requestIdRef.current) {
-        setPhotos(photos);
+        setValues(values);
       }
     }, 300);
   };
@@ -40,9 +38,8 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       id="photo-s3-key-autocomplete"
       value={props.value}
       placeholder="Type to search"
-      options={photos?.map((photo) => ({
-        value: photo.s3Key,
-        placeholder: photo.placeholder,
+      options={values?.map((value) => ({
+        value,
       }))}
       popover={{
         animate: true,
@@ -57,7 +54,7 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
           <Card as="button">
             <Flex gap={2} padding={2} align="center">
               <img
-                src={option.placeholder}
+                src={getPhotoUrl(option.value)}
                 alt=""
                 width={33}
                 height={33}
@@ -88,14 +85,10 @@ export default PhotoS3KeyInput;
 
 export const PhotoS3KeyInputWithPreview = (props: StringInputProps) => {
   return (
-    <Stack space={2}>
+    <Stack gap={2}>
       <PhotoS3KeyInput {...props} />
       {props.value && (
-        <img
-          src={`https://d33d9wdzzxzwu3.cloudfront.net/${props.value}`}
-          alt=""
-          width="100%"
-        />
+        <img src={getPhotoUrl(props.value)} alt="" width="100%" />
       )}
     </Stack>
   );

@@ -1,6 +1,7 @@
 import CopyIcon from "@sanity/icons/Copy";
 import { Button, Flex, Stack, useToast } from "@sanity/ui";
 import type { PreviewProps } from "sanity";
+import { getPhotoUrl } from "../lib/s3";
 
 type FigurePreviewProps = PreviewProps &
   Partial<{
@@ -44,11 +45,7 @@ const FigurePreview = (props: FigurePreviewProps) => {
           opacity: hidden === true ? "40%" : "100%",
         }}
       >
-        <img
-          src={`https://d33d9wdzzxzwu3.cloudfront.net/${photoS3Key}`}
-          alt={alt}
-          width="100%"
-        />
+        <img src={getPhotoUrl(photoS3Key)} alt={alt} width="100%" />
         {caption !== undefined && <figcaption>{caption}</figcaption>}
       </figure>
     </Stack>

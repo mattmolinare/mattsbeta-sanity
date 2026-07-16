@@ -14,12 +14,12 @@
     "sanity"
   ],
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1088.0",
     "@codemirror/state": "^6.7.1",
     "@sanity/icons": "^5.1.0",
     "@sanity/ui": "^3.3.5",
     "@sanity/util": "^6.5.0",
     "@sanity/vision": "^6.5.0",
-    "@supabase/supabase-js": "^2.110.7",
     "date-fns": "^4.4.0",
     "endent": "^2.1.0",
     "geo-coordinates-parser": "^1.7.4",
