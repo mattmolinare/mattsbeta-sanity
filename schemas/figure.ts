@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import FigureBlock from "../components/figure-block";
 import FigureCaptionInput from "../components/figure-caption-input";
 import FigurePreview from "../components/figure-preview";
 
@@ -42,6 +43,7 @@ const figureType = defineType({
     },
   },
   components: {
+    block: FigureBlock,
     preview: FigurePreview,
   },
 });

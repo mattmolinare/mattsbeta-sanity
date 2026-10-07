@@ -13,8 +13,9 @@ import {
 import { randomKey } from "@sanity/util/content";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ArrayOfObjectsInputProps } from "sanity";
-import { insert, setIfMissing } from "sanity";
+import { insert, setIfMissing, unset } from "sanity";
 import { queryPhotoCount, queryPhotoS3Keys } from "../lib/s3";
+import { ReportMoveContext } from "./report-context";
 
 const usePhotoCount = (query: string) => {
   const [photoCount, setPhotoCount] = useState<number>();
@@ -79,11 +80,34 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
     });
   }, [inputValue]);
 
+  const { value, onChange } = props;
+
+  const moveBlock = useCallback(
+    (key: string, direction: "up" | "down") => {
+      const index = value?.findIndex((item) => item._key === key) ?? -1;
+      const neighbor = value?.[index + (direction === "up" ? -1 : 1)];
+
+      if (value === undefined || index === -1 || neighbor === undefined) {
+        return;
+      }
+
+      onChange([
+        unset([{ _key: key }]),
+        insert([value[index]], direction === "up" ? "before" : "after", [
+          { _key: neighbor._key },
+        ]),
+      ]);
+    },
+    [value, onChange],
+  );
+
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <Stack gap={3}>
-      {props.renderDefault(props)}
+      <ReportMoveContext.Provider value={moveBlock}>
+        {props.renderDefault(props)}
+      </ReportMoveContext.Provider>
       <Flex direction={["column", "column", "row"]} gap={1}>
         <Box flex={["auto", "auto", 1]}>
           <TextInput
