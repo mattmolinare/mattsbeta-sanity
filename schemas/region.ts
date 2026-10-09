@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import PhotoS3KeyInput from "../components/photo-s3-key-input";
+import richTextBlock from "./rich-text-block";
 
 const regionType = defineType({
   name: "region",
@@ -22,7 +23,8 @@ const regionType = defineType({
     defineField({
       name: "description",
       title: "Description",
-      type: "text",
+      type: "array",
+      of: [richTextBlock, defineArrayMember({ type: "figure" })],
     }),
     defineField({
       name: "states",

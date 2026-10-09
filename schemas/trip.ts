@@ -1,9 +1,8 @@
-import ArrowTopRightIcon from "@sanity/icons/ArrowTopRight";
-import LinkIcon from "@sanity/icons/Link";
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { PhotoS3KeyInputWithPreview } from "../components/photo-s3-key-input";
 import ReportInput from "../components/report-input";
 import VehicleTypeInput from "../components/vehicle-type-input";
+import richTextBlock from "./rich-text-block";
 
 const tripType = defineType({
   name: "trip",
@@ -27,44 +26,7 @@ const tripType = defineType({
       name: "report",
       title: "Report",
       type: "array",
-      of: [
-        defineArrayMember({
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          marks: {
-            annotations: [
-              {
-                name: "externalLink",
-                title: "External link",
-                icon: ArrowTopRightIcon,
-                type: "object",
-                fields: [
-                  {
-                    name: "link",
-                    title: "Link",
-                    type: "url",
-                  },
-                ],
-              },
-              {
-                name: "tripLink",
-                title: "Trip link",
-                icon: LinkIcon,
-                type: "object",
-                fields: [
-                  {
-                    name: "trip",
-                    title: "Trip",
-                    type: "reference",
-                    to: [{ type: "trip" }],
-                  },
-                ],
-              },
-            ],
-          },
-        }),
-        defineArrayMember({ type: "figure" }),
-      ],
+      of: [richTextBlock, defineArrayMember({ type: "figure" })],
       components: {
         input: ReportInput,
       },
