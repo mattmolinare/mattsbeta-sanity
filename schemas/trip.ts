@@ -1,8 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { PhotoS3KeyInputWithPreview } from "../components/photo-s3-key-input";
-import ReportInput from "../components/report-input";
 import VehicleTypeInput from "../components/vehicle-type-input";
-import richTextBlock from "./rich-text-block";
 
 const tripType = defineType({
   name: "trip",
@@ -25,11 +23,7 @@ const tripType = defineType({
     defineField({
       name: "report",
       title: "Report",
-      type: "array",
-      of: [richTextBlock, defineArrayMember({ type: "figure" })],
-      components: {
-        input: ReportInput,
-      },
+      type: "richText",
     }),
     defineField({
       name: "coverPhotoS3Key",

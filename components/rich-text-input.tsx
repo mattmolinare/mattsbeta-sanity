@@ -43,7 +43,7 @@ const usePhotoCount = (query: string) => {
   return photoCount;
 };
 
-const ReportInput = (props: ArrayOfObjectsInputProps) => {
+const RichTextInput = (props: ArrayOfObjectsInputProps) => {
   const toast = useToast();
 
   const [inputValue, setInputValue] = useState("");
@@ -159,4 +159,4 @@ const ReportInput = (props: ArrayOfObjectsInputProps) => {
   );
 };
 
-export default ReportInput;
+export default RichTextInput;
