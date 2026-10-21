@@ -1,6 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { PhotoS3KeyInputWithPreview } from "../components/photo-s3-key-input";
-import VehicleTypeInput from "../components/vehicle-type-input";
 
 const tripType = defineType({
   name: "trip",
@@ -47,19 +46,27 @@ const tripType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "vehicleType",
-      title: "Vehicle type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Car", value: "car" },
-          { title: "4x4", value: "4x4" },
-        ],
-        layout: "radio",
-      },
-      components: {
-        input: VehicleTypeInput,
-      },
+      name: "vehicleTypes",
+      title: "Vehicle types",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "string",
+          options: {
+            list: [
+              { title: "2WD", value: "2wd" },
+              { title: "High clearance", value: "high-clearance" },
+              { title: "4WD", value: "4wd" },
+              { title: "Bus", value: "bus" },
+              { title: "Bike", value: "bike" },
+              { title: "Boat", value: "boat" },
+              { title: "Gondola", value: "gondola" },
+              { title: "Aerial tramway", value: "aerial-tramway" },
+            ],
+          },
+        }),
+      ],
+      validation: (Rule) => Rule.unique(),
     }),
     defineField({
       name: "county",
