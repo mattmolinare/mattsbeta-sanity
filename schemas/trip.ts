@@ -55,8 +55,9 @@ const tripType = defineType({
           options: {
             list: [
               { title: "2WD", value: "2wd" },
-              { title: "High clearance", value: "high-clearance" },
               { title: "4WD", value: "4wd" },
+              { title: "High clearance 2WD", value: "high-clearance-2wd" },
+              { title: "High clearance 4WD", value: "high-clearance-4wd" },
               { title: "Bus", value: "bus" },
               { title: "Bike", value: "bike" },
               { title: "Boat", value: "boat" },
