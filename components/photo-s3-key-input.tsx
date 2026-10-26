@@ -3,13 +3,13 @@ import { format } from "date-fns";
 import { useRef, useState } from "react";
 import type { StringInputProps } from "sanity";
 import { set, unset } from "sanity";
-import useTimeoutRef from "../hooks/timeout-ref";
+import useTimeout from "../hooks/timeout";
 import { getPhotoUrl, parsePhotoS3Key, queryPhotoS3Keys } from "../lib/s3";
 
 const PhotoS3KeyInput = (props: StringInputProps) => {
   const [values, setValues] = useState<string[] | null>(null);
 
-  const timeoutRef = useTimeoutRef();
+  const timeout = useTimeout();
 
   const requestIdRef = useRef(0);
 
@@ -20,9 +20,9 @@ const PhotoS3KeyInput = (props: StringInputProps) => {
       return;
     }
 
-    clearTimeout(timeoutRef.current);
+    timeout.clear();
 
-    timeoutRef.current = setTimeout(async () => {
+    timeout.set(async () => {
       const requestId = ++requestIdRef.current;
 
       const values = await queryPhotoS3Keys(query);
